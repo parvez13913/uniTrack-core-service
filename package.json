@@ -12,7 +12,7 @@
     "lint-prettier": "yarn lint:check && yarn prettier:check",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Programming Hero",
+  "author": "Parvez Rahman",
   "license": "ISC",
   "lint-staged": {
     "src/**/*.ts": "yarn lint-prettier"
@@ -39,10 +39,11 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "http-status": "^1.6.2",
-    "jsonwebtoken": "^9.0.0",
+    "http-status": "^1.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^5.3.0",
     "winston": "^3.9.0",
     "winston-daily-rotate-file": "^4.7.1",
-    "zod": "^3.21.4"
+    "zod": "^3.22.2"
   }
 }
