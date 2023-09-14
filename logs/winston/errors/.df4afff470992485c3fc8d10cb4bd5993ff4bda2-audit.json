@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\errors\\.df4afff470992485c3fc8d10cb4bd5993ff4bda2-audit.json",
+    "files": [
+        {
+            "date": 1694650716524,
+            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\errors\\unt-2023-14-09-06-error.log",
+            "hash": "88fa46172cdcaccd3bdafc8156091564e92749f6baac3cb227dcad5a8a6fb92b"
+        }
+    ],
+    "hashType": "sha256"
+}
