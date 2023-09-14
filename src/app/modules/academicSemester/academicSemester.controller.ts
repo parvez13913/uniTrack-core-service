@@ -34,9 +34,23 @@ const getAllAcademicSemesters = catchAsync(
     sendResponse<AcademicSemester[]>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Academic Semester Created Successfully',
+      message: 'Academic Semester Fetched Successfully',
       meta: result.meta,
       data: result.data,
+    });
+  },
+);
+
+const getSingleAcademicSemester = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result = await AcademicSemesterService.getSingleAcademicSemester(id);
+
+    sendResponse<AcademicSemester>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Academic Semester Fetched Successfully',
+      data: result,
     });
   },
 );
@@ -44,4 +58,5 @@ const getAllAcademicSemesters = catchAsync(
 export const AcademicSemesterController = {
   createAcademicSemister,
   getAllAcademicSemesters,
+  getSingleAcademicSemester,
 };
