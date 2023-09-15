@@ -39,6 +39,16 @@
             "date": 1694745424992,
             "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\errors\\unt-2023-15-09-08-error.log",
             "hash": "d7682e6d725ba135fe53d4cf388a596d121038a9983467ede9d1f2c50b4e7068"
+        },
+        {
+            "date": 1694748467649,
+            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\errors\\unt-2023-15-09-09-error.log",
+            "hash": "7bf6990178af93a5d36df8bcfc007cf8dc59dc6f3d9ed911eac51419d339111f"
+        },
+        {
+            "date": 1694790122225,
+            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\errors\\unt-2023-15-09-21-error.log",
+            "hash": "f414a12fdbb898baf7889e57559e83790a7752a572cd5750217d49536346a44e"
         }
     ],
     "hashType": "sha256"
