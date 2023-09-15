@@ -7,6 +7,6 @@ router.post(
   '/create-academicFaculty',
   AcademicFacultyController.createAcademicFaculty,
 );
-router.get('/', AcademicFacultyController.getAllAcademicFaculty);
+router.get('/', AcademicFacultyController.getAllAcademicFaculties);
 
 export const AcademicFacultyRouter = router;
