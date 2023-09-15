@@ -41,7 +41,22 @@ const getAllAcademicFaculties = catchAsync(
   },
 );
 
+const getSingleAcademicFaculty = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result = await AcademicFacultyService.getSingleAcademicFaculty(id);
+
+    sendResponse<AcademicFaculty>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Academic Semster data fetched!!',
+      data: result,
+    });
+  },
+);
+
 export const AcademicFacultyController = {
   createAcademicFaculty,
   getAllAcademicFaculties,
+  getSingleAcademicFaculty,
 };
