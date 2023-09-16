@@ -28,13 +28,26 @@ const getAllStudents = catchAsync(async (req: Request, res: Response) => {
   sendResponse<Student[]>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Student Created Successfully',
+    message: 'Student Fetchd Successfully',
     meta: result.meta,
     data: result.data,
+  });
+});
+
+const getSingleStudent = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await StudentService.getSingleStudent(id);
+
+  sendResponse<Student>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student Fetchd Successfully',
+    data: result,
   });
 });
 
 export const StudentController = {
   createStudent,
   getAllStudents,
+  getSingleStudent,
 };

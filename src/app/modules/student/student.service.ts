@@ -68,7 +68,14 @@ const getAllStudents = async (
   };
 };
 
+const getSingleStudent = async (id: string): Promise<Student | null> => {
+  const result = await prisma.student.findUnique({ where: { id } });
+
+  return result;
+};
+
 export const StudentService = {
   createStudent,
   getAllStudents,
+  getSingleStudent,
 };
