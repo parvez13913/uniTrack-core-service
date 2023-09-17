@@ -13,7 +13,11 @@ router.post(
 
 router.get('/:id', AcademicSemesterController.getSingleAcademicSemester);
 
-router.patch('/:id', AcademicSemesterController.updateAcademicSemester);
+router.patch(
+  '/:id',
+  validateRequest(AcademicSemesterValidation.updateAcademicSemesterZodSchema),
+  AcademicSemesterController.updateAcademicSemester,
+);
 
 router.get('/', AcademicSemesterController.getAllAcademicSemesters);
 
