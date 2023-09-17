@@ -1,0 +1,12 @@
+{
+  message: 'Server running on port 5000',
+  level: 'info',
+  label: 'UniTrack',
+  timestamp: '2023-09-17T06:40:30.612Z'
+}
+{
+  message: 'Server running on port 5000',
+  level: 'info',
+  label: 'UniTrack',
+  timestamp: '2023-09-17T06:41:37.809Z'
+}
