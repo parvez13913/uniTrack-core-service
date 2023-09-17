@@ -74,7 +74,18 @@ const getAllFaculties = async (
   };
 };
 
+const getSingleFaculty = async (id: string): Promise<Faculty | null> => {
+  const result = await prisma.faculty.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  return result;
+};
+
 export const FacultyService = {
   createFaculty,
   getAllFaculties,
+  getSingleFaculty,
 };
