@@ -8,7 +8,14 @@ import { studentFilterableFields } from './student.constants';
 import { IStudentFilters } from './student.interface';
 
 const createStudent = async (data: Student): Promise<Student> => {
-  const result = await prisma.student.create({ data });
+  const result = await prisma.student.create({
+    data,
+    include: {
+      academicFaculty: true,
+      academicDepartment: true,
+      academicSemester: true,
+    },
+  });
 
   return result;
 };
@@ -54,6 +61,11 @@ const getAllStudents = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: [options.sortOrder] }
         : { createdAt: 'desc' },
+    include: {
+      academicFaculty: true,
+      academicDepartment: true,
+      academicSemester: true,
+    },
   });
 
   const total = await prisma.student.count();
@@ -69,7 +81,14 @@ const getAllStudents = async (
 };
 
 const getSingleStudent = async (id: string): Promise<Student | null> => {
-  const result = await prisma.student.findUnique({ where: { id } });
+  const result = await prisma.student.findUnique({
+    where: { id },
+    include: {
+      academicFaculty: true,
+      academicDepartment: true,
+      academicSemester: true,
+    },
+  });
 
   return result;
 };
@@ -83,6 +102,26 @@ const updateStudent = async (
       id,
     },
     data: payload,
+    include: {
+      academicFaculty: true,
+      academicDepartment: true,
+      academicSemester: true,
+    },
+  });
+
+  return result;
+};
+
+const deleteStudent = async (id: string): Promise<Student> => {
+  const result = await prisma.student.delete({
+    where: {
+      id,
+    },
+    include: {
+      academicFaculty: true,
+      academicDepartment: true,
+      academicSemester: true,
+    },
   });
 
   return result;
@@ -93,4 +132,5 @@ export const StudentService = {
   getAllStudents,
   getSingleStudent,
   updateStudent,
+  deleteStudent,
 };
