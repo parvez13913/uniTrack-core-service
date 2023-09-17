@@ -11,7 +11,11 @@ router.post(
   FacultController.createFaculty,
 );
 
-router.patch('/:id', FacultController.updateFaculty);
+router.patch(
+  '/:id',
+  validateRequest(FacultyValidation.updateFacultyZodSchema),
+  FacultController.updateFaculty,
+);
 
 router.get('/:id', FacultController.getSingleFaculty);
 
