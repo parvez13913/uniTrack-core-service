@@ -34,7 +34,7 @@ const getAllAcademicFaculties = catchAsync(
     sendResponse<AcademicFaculty[]>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Academic Semster data fetched!!',
+      message: 'Academic Faculty data fetched!!',
       meta: result.meta,
       data: result.data,
     });
@@ -49,7 +49,25 @@ const getSingleAcademicFaculty = catchAsync(
     sendResponse<AcademicFaculty>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Academic Semster data fetched!!',
+      message: 'Academic Faculty data fetched!!',
+      data: result,
+    });
+  },
+);
+
+const updateAcademicFaculty = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const payload = req.body;
+    const result = await AcademicFacultyService.updateAcademicFaculty(
+      id,
+      payload,
+    );
+
+    sendResponse<AcademicFaculty>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Academic Faculty data Updated!!',
       data: result,
     });
   },
@@ -59,4 +77,5 @@ export const AcademicFacultyController = {
   createAcademicFaculty,
   getAllAcademicFaculties,
   getSingleAcademicFaculty,
+  updateAcademicFaculty,
 };
