@@ -19,6 +19,8 @@ router.patch(
 
 router.get('/:id', FacultController.getSingleFaculty);
 
+router.delete('/:id', FacultController.deleteFaculty);
+
 router.get('/', FacultController.getAllFaculties);
 
 export const FacultyRouter = router;
