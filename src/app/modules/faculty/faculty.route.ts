@@ -1,9 +1,15 @@
 import express from 'express';
+import validateRequest from '../../middlewares/validateRequest';
 import { FacultController } from './faculty.controller';
+import { FacultyValidation } from './faculty.validation';
 
 const router = express.Router();
 
-router.post('/create-faculty', FacultController.createFaculty);
+router.post(
+  '/create-faculty',
+  validateRequest(FacultyValidation.createFacultyZodSchema),
+  FacultController.createFaculty,
+);
 
 router.patch('/:id', FacultController.updateFaculty);
 
