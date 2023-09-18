@@ -74,7 +74,18 @@ const getAllRooms = async (
   };
 };
 
+const getSingleRoom = async (id: string): Promise<Room | null> => {
+  const result = await prisma.room.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  return result;
+};
+
 export const RoomService = {
   createRoom,
   getAllRooms,
+  getSingleRoom,
 };

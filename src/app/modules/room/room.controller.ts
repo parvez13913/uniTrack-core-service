@@ -34,7 +34,20 @@ const getAllRooms = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getSingleRoom = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await RoomService.getSingleRoom(id);
+
+  sendResponse<Room>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Room Fetched Successfully!!',
+    data: result,
+  });
+});
+
 export const RoomController = {
   createRoom,
   getAllRooms,
+  getSingleRoom,
 };
