@@ -84,8 +84,23 @@ const getSingleRoom = async (id: string): Promise<Room | null> => {
   return result;
 };
 
+const updateRoom = async (
+  id: string,
+  payload: Partial<Room>,
+): Promise<Room> => {
+  const result = await prisma.room.update({
+    where: {
+      id,
+    },
+    data: payload,
+  });
+
+  return result;
+};
+
 export const RoomService = {
   createRoom,
   getAllRooms,
   getSingleRoom,
+  updateRoom,
 };

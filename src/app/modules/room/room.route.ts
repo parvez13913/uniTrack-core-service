@@ -14,6 +14,8 @@ router.post(
   RoomController.createRoom,
 );
 
+router.patch('/:id', RoomController.updateRoom);
+
 router.get('/:id', RoomController.getSingleRoom);
 
 router.get('/', RoomController.getAllRooms);
