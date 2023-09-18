@@ -14,7 +14,12 @@ router.post(
   RoomController.createRoom,
 );
 
-router.patch('/:id', RoomController.updateRoom);
+router.patch(
+  '/:id',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  validateRequest(RoomValidation.updateRoomZodSchema),
+  RoomController.updateRoom,
+);
 
 router.get('/:id', RoomController.getSingleRoom);
 
