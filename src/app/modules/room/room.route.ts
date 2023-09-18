@@ -14,6 +14,8 @@ router.post(
   RoomController.createRoom,
 );
 
+router.get('/:id', RoomController.getSingleRoom);
+
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
@@ -21,7 +23,11 @@ router.patch(
   RoomController.updateRoom,
 );
 
-router.get('/:id', RoomController.getSingleRoom);
+router.delete(
+  '/:id',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  RoomController.deleteRoom,
+);
 
 router.get('/', RoomController.getAllRooms);
 

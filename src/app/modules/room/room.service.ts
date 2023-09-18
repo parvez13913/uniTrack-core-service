@@ -58,6 +58,10 @@ const getAllRooms = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : { createdAt: 'desc' },
+
+    include: {
+      building: true,
+    },
   });
 
   const total = await prisma.room.count({
@@ -79,6 +83,9 @@ const getSingleRoom = async (id: string): Promise<Room | null> => {
     where: {
       id,
     },
+    include: {
+      building: true,
+    },
   });
 
   return result;
@@ -93,6 +100,22 @@ const updateRoom = async (
       id,
     },
     data: payload,
+    include: {
+      building: true,
+    },
+  });
+
+  return result;
+};
+
+const deleteRoom = async (id: string): Promise<Room | null> => {
+  const result = await prisma.room.delete({
+    where: {
+      id,
+    },
+    include: {
+      building: true,
+    },
   });
 
   return result;
@@ -103,4 +126,5 @@ export const RoomService = {
   getAllRooms,
   getSingleRoom,
   updateRoom,
+  deleteRoom,
 };
