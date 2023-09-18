@@ -35,7 +35,20 @@ const getAllBuilding = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getSingleBuilding = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await BuildingService.getSingleBuilding(id);
+
+  sendResponse<Building>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Building Fetched Successfully!!',
+    data: result,
+  });
+});
+
 export const BuildingController = {
   createBuilding,
   getAllBuilding,
+  getSingleBuilding,
 };

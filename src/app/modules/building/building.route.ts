@@ -13,6 +13,9 @@ router.post(
   validateRequest(BuildingValidation.createBuildingZodSchema),
   BuildingController.createBuilding,
 );
+
+router.get('/:id', BuildingController.getSingleBuilding);
+
 router.get('/', BuildingController.getAllBuilding);
 
 export const BuildingRouter = router;
