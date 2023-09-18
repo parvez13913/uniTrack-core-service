@@ -14,11 +14,20 @@ router.post(
   BuildingController.createBuilding,
 );
 
-router.patch('/:id', BuildingController.updateBuilding);
-
 router.get('/:id', BuildingController.getSingleBuilding);
 
-router.delete('/:id', BuildingController.deleteBuilding);
+router.patch(
+  '/:id',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  validateRequest(BuildingValidation.updateBuildingZodSchema),
+  BuildingController.updateBuilding,
+);
+
+router.delete(
+  '/:id',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  BuildingController.deleteBuilding,
+);
 
 router.get('/', BuildingController.getAllBuilding);
 
