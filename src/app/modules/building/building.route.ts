@@ -18,6 +18,8 @@ router.patch('/:id', BuildingController.updateBuilding);
 
 router.get('/:id', BuildingController.getSingleBuilding);
 
+router.delete('/:id', BuildingController.deleteBuilding);
+
 router.get('/', BuildingController.getAllBuilding);
 
 export const BuildingRouter = router;

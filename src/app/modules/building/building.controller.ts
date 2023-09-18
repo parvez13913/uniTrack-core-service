@@ -60,9 +60,22 @@ const updateBuilding = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const deleteBuilding = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await BuildingService.deleteBuilding(id);
+
+  sendResponse<Building>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Building Deleted Successfully!!',
+    data: result,
+  });
+});
+
 export const BuildingController = {
   createBuilding,
   getAllBuilding,
   getSingleBuilding,
   updateBuilding,
+  deleteBuilding,
 };

@@ -85,9 +85,20 @@ const updateBuilding = async (
   return result;
 };
 
+const deleteBuilding = async (id: string): Promise<Building> => {
+  const result = await prisma.building.delete({
+    where: {
+      id,
+    },
+  });
+
+  return result;
+};
+
 export const BuildingService = {
   createBuilding,
   getAllBuilding,
   getSingleBuilding,
   updateBuilding,
+  deleteBuilding,
 };
