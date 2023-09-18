@@ -47,8 +47,22 @@ const getSingleBuilding = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateBuilding = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const payload = req.body;
+  const result = await BuildingService.updateBuilding(id, payload);
+
+  sendResponse<Building>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Building Updated Successfully!!',
+    data: result,
+  });
+});
+
 export const BuildingController = {
   createBuilding,
   getAllBuilding,
   getSingleBuilding,
+  updateBuilding,
 };

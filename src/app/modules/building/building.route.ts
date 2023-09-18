@@ -14,6 +14,8 @@ router.post(
   BuildingController.createBuilding,
 );
 
+router.patch('/:id', BuildingController.updateBuilding);
+
 router.get('/:id', BuildingController.getSingleBuilding);
 
 router.get('/', BuildingController.getAllBuilding);

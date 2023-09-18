@@ -71,8 +71,23 @@ const getSingleBuilding = async (id: string): Promise<Building | null> => {
   return result;
 };
 
+const updateBuilding = async (
+  id: string,
+  payload: Partial<Building>,
+): Promise<Building> => {
+  const result = await prisma.building.update({
+    where: {
+      id,
+    },
+    data: payload,
+  });
+
+  return result;
+};
+
 export const BuildingService = {
   createBuilding,
   getAllBuilding,
   getSingleBuilding,
+  updateBuilding,
 };
