@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.post('/create-course', CourseController.createCourse);
 
+router.patch('/:id', CourseController.updateCourse);
+
 router.get('/:id', CourseController.getSingleCourse);
 
 router.get('/', CourseController.getAllCourses);

@@ -129,8 +129,23 @@ const getSingleCourse = async (id: string): Promise<Course | null> => {
   return result;
 };
 
+const updateCourse = async (
+  id: string,
+  payload: Partial<Course>,
+): Promise<Course> => {
+  const result = await prisma.course.update({
+    where: {
+      id,
+    },
+    data: payload,
+  });
+
+  return result;
+};
+
 export const CourseService = {
   createCourse,
   getAllCourses,
   getSingleCourse,
+  updateCourse,
 };
