@@ -1,9 +1,14 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Course, Prisma } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
+import { paginationHelpers } from '../../../helpers/paginationHelper';
+import { IGenericResponse } from '../../../interfaces/common';
+import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { ICourseCreateData } from './course.interface';
+import { courseFilterableFields } from './course.constants';
+import { ICourseCreateData, ICourseFilters } from './course.interface';
 
 const createCourse = async (data: ICourseCreateData): Promise<any> => {
   const { prerequisiteCourses, ...courseData } = data;
@@ -57,6 +62,64 @@ const createCourse = async (data: ICourseCreateData): Promise<any> => {
   throw new ApiError(httpStatus.BAD_REQUEST, 'Unable to create Course');
 };
 
+const getAllCourses = async (
+  filters: ICourseFilters,
+  options: IPaginationOptions,
+): Promise<IGenericResponse<Course[]>> => {
+  const { page, limit, skip } = paginationHelpers.calculatePagination(options);
+  const { searchTerm, ...filtersData } = filters;
+
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: courseFilterableFields.map(field => ({
+        [field]: {
+          contains: searchTerm,
+          mode: 'insensitive',
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filtersData).length > 0) {
+    andConditions.push({
+      AND: Object.keys(filtersData).map(key => ({
+        [key]: {
+          equals: (filtersData as any)[key],
+        },
+      })),
+    });
+  }
+
+  const whereCoditions: Prisma.CourseWhereInput =
+    andConditions.length > 0 ? { AND: andConditions } : {};
+
+  const result = await prisma.course.findMany({
+    where: whereCoditions,
+    skip,
+    take: limit,
+    orderBy:
+      options.sortBy && options.sortOrder
+        ? { [options.sortBy]: options.sortOrder }
+        : { createdAt: 'desc' },
+  });
+
+  const total = await prisma.course.count({
+    where: whereCoditions,
+  });
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: result,
+  };
+};
+
 export const CourseService = {
   createCourse,
+  getAllCourses,
 };
