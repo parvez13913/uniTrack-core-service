@@ -103,6 +103,18 @@ const getAllCourses = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : { createdAt: 'desc' },
+    include: {
+      prerequisite: {
+        include: {
+          prerequistite: true,
+        },
+      },
+      prerequisiteFor: {
+        include: {
+          course: true,
+        },
+      },
+    },
   });
 
   const total = await prisma.course.count({
@@ -124,6 +136,18 @@ const getSingleCourse = async (id: string): Promise<Course | null> => {
     where: {
       id,
     },
+    include: {
+      prerequisite: {
+        include: {
+          prerequistite: true,
+        },
+      },
+      prerequisiteFor: {
+        include: {
+          course: true,
+        },
+      },
+    },
   });
 
   return result;
@@ -143,9 +167,33 @@ const updateCourse = async (
   return result;
 };
 
+const deleteCourse = async (id: string): Promise<Course | null> => {
+  await prisma.courseToPrereqisite.deleteMany({
+    where: {
+      OR: [
+        {
+          courseId: id,
+        },
+        {
+          prerequisiteId: id,
+        },
+      ],
+    },
+  });
+
+  const result = await prisma.course.delete({
+    where: {
+      id,
+    },
+  });
+
+  return result;
+};
+
 export const CourseService = {
   createCourse,
   getAllCourses,
   getSingleCourse,
   updateCourse,
+  deleteCourse,
 };

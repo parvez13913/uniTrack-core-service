@@ -9,6 +9,8 @@ router.patch('/:id', CourseController.updateCourse);
 
 router.get('/:id', CourseController.getSingleCourse);
 
+router.delete('/:id', CourseController.deleteCourse);
+
 router.get('/', CourseController.getAllCourses);
 
 export const CourseRouter = router;
