@@ -10,7 +10,12 @@ import { IAcademicDepartmentFilters } from './academicDepartment.intrface';
 const createAcademicDepartment = async (
   data: AcademicDepartment,
 ): Promise<AcademicDepartment | null> => {
-  const result = await prisma.academicDepartment.create({ data });
+  const result = await prisma.academicDepartment.create({
+    data,
+    include: {
+      academicFaculty: true,
+    },
+  });
   return result;
 };
 
@@ -55,9 +60,14 @@ const getAllDepartMents = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : { createdAt: 'desc' },
+    include: {
+      academicFaculty: true,
+    },
   });
 
-  const total = await prisma.academicDepartment.count();
+  const total = await prisma.academicDepartment.count({
+    where: whereConditions,
+  });
 
   return {
     meta: {
@@ -74,6 +84,9 @@ const getSingleAcademicDepartment = async (
 ): Promise<AcademicDepartment | null> => {
   const result = await prisma.academicDepartment.findUnique({
     where: { id },
+    include: {
+      academicFaculty: true,
+    },
   });
 
   return result;
@@ -88,6 +101,9 @@ const updateAcademicDepartment = async (
       id,
     },
     data: payload,
+    include: {
+      academicFaculty: true,
+    },
   });
 
   return result;
@@ -99,6 +115,9 @@ const deleteAcademicDepartment = async (
   const result = await prisma.academicDepartment.delete({
     where: {
       id,
+    },
+    include: {
+      academicFaculty: true,
     },
   });
 
