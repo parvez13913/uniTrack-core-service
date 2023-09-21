@@ -13,6 +13,8 @@ router.delete('/:id', CourseController.deleteCourse);
 
 router.post('/:id/assign-faculyis', CourseController.assignFaculties);
 
+router.delete('/:id/remove-faculyis', CourseController.removeFaculties);
+
 router.get('/', CourseController.getAllCourses);
 
 export const CourseRouter = router;

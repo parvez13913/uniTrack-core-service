@@ -79,7 +79,20 @@ const assignFaculties = async (req: Request, res: Response) => {
   sendResponse<CourseFaculty[]>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'CourseFaculties Created Successfully!!',
+    message: 'Course Faculties Assigned Successfully!!',
+    data: result,
+  });
+};
+
+const removeFaculties = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const data = req.body.faculties;
+  const result = await CourseService.removeFaculties(id, data);
+
+  sendResponse<CourseFaculty[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Course Faculties Deleted Successfully!!',
     data: result,
   });
 };
@@ -91,4 +104,5 @@ export const CourseController = {
   updateCourse,
   deleteCourse,
   assignFaculties,
+  removeFaculties,
 };
