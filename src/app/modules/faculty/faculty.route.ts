@@ -29,9 +29,17 @@ router.delete(
   FacultController.deleteFaculty,
 );
 
-router.post('/:id/assign-courses', FacultController.assignCourses);
+router.post(
+  '/:id/assign-courses',
+  validateRequest(FacultyValidation.assignOrRemoveCoursesZodSchema),
+  FacultController.assignCourses,
+);
 
-router.delete('/:id/remove-courses', FacultController.removeCourses);
+router.delete(
+  '/:id/remove-courses',
+  validateRequest(FacultyValidation.assignOrRemoveCoursesZodSchema),
+  FacultController.removeCourses,
+);
 
 router.get('/', FacultController.getAllFaculties);
 

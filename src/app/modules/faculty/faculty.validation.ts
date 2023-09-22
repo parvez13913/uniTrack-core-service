@@ -56,7 +56,16 @@ const updateFacultyZodSchema = z.object({
   }),
 });
 
+const assignOrRemoveCoursesZodSchema = z.object({
+  body: z.object({
+    courses: z.array(z.string(), {
+      required_error: 'Courses Are Required',
+    }),
+  }),
+});
+
 export const FacultyValidation = {
   createFacultyZodSchema,
   updateFacultyZodSchema,
+  assignOrRemoveCoursesZodSchema,
 };
