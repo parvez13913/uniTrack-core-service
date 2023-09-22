@@ -13,6 +13,8 @@ router.get(
   SemesterRegistrationController.getSingleSemesterRegistration,
 );
 
+router.patch('/:id', SemesterRegistrationController.updateSemesterRegistration);
+
 router.delete(
   '/:id',
   SemesterRegistrationController.deleteSemesterRegistration,
