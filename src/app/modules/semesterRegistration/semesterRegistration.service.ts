@@ -102,7 +102,20 @@ const getAllSemesterRegistrations = async (
   };
 };
 
+const getSingleRegistration = async (
+  id: string,
+): Promise<SemesterRegistration | null> => {
+  const result = await prisma.semesterRegistration.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  return result;
+};
+
 export const SemesterRegistrationService = {
   createSemesterRegistration,
   getAllSemesterRegistrations,
+  getSingleRegistration,
 };

@@ -36,9 +36,23 @@ const getAllSemesterRegistrations = catchAsync(
     sendResponse<SemesterRegistration[]>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Semester Registration created Successfully!!',
+      message: 'Semester Registration Fetched Successfully!!',
       meta: result.meta,
       data: result.data,
+    });
+  },
+);
+
+const getSingleRegistration = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result = await SemesterRegistrationService.getSingleRegistration(id);
+
+    sendResponse<SemesterRegistration>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Semester Registration Fetched Successfully!!',
+      data: result,
     });
   },
 );
@@ -46,4 +60,5 @@ const getAllSemesterRegistrations = catchAsync(
 export const SemesterRegistrationController = {
   createSemesterRegistration,
   getAllSemesterRegistrations,
+  getSingleRegistration,
 };
