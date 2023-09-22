@@ -8,7 +8,15 @@ router.post(
   SemesterRegistrationController.createSemesterRegistration,
 );
 
-router.get('/:id', SemesterRegistrationController.getSingleRegistration);
+router.get(
+  '/:id',
+  SemesterRegistrationController.getSingleSemesterRegistration,
+);
+
+router.delete(
+  '/:id',
+  SemesterRegistrationController.deleteSemesterRegistration,
+);
 
 router.get('/', SemesterRegistrationController.getAllSemesterRegistrations);
 
