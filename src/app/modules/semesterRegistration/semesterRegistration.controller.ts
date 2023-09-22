@@ -1,8 +1,11 @@
 import { SemesterRegistration } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
+import { paginationFields } from '../../../constants/pagination';
 import catchAsync from '../../../shared/catchAsync';
+import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
+import { semesterRegistrationFilterableFields } from './semesterRegistration.constants';
 import { SemesterRegistrationService } from './semesterRegistration.service';
 
 const createSemesterRegistration = catchAsync(
@@ -20,6 +23,27 @@ const createSemesterRegistration = catchAsync(
   },
 );
 
+const getAllSemesterRegistrations = catchAsync(
+  async (req: Request, res: Response) => {
+    const filters = pick(req.query, semesterRegistrationFilterableFields);
+    const options = pick(req.query, paginationFields);
+    const result =
+      await SemesterRegistrationService.getAllSemesterRegistrations(
+        filters,
+        options,
+      );
+
+    sendResponse<SemesterRegistration[]>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Semester Registration created Successfully!!',
+      meta: result.meta,
+      data: result.data,
+    });
+  },
+);
+
 export const SemesterRegistrationController = {
   createSemesterRegistration,
+  getAllSemesterRegistrations,
 };

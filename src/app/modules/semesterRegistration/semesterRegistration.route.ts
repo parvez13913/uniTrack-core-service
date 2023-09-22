@@ -8,4 +8,6 @@ router.post(
   SemesterRegistrationController.createSemesterRegistration,
 );
 
+router.get('/', SemesterRegistrationController.getAllSemesterRegistrations);
+
 export const SemesterRegistrationRouter = router;
