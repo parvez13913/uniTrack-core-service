@@ -18,7 +18,13 @@ router.get(
   SemesterRegistrationController.getSingleSemesterRegistration,
 );
 
-router.patch('/:id', SemesterRegistrationController.updateSemesterRegistration);
+router.patch(
+  '/:id',
+  validateRequest(
+    SemesterRegistrationValidation.updateSemesterRegistrationZodSchema,
+  ),
+  SemesterRegistrationController.updateSemesterRegistration,
+);
 
 router.delete(
   '/:id',
