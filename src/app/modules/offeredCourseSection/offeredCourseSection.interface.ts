@@ -1,0 +1,5 @@
+export type IOfferedCourseSection = {
+  title: string;
+  maxCapacity: number;
+  offeredCourseId: string;
+};
