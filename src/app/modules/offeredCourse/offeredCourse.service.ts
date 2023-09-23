@@ -1,7 +1,15 @@
+import { Prisma } from '@prisma/client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { OfferedCourse } from '@prisma/client';
+import { paginationHelpers } from '../../../helpers/paginationHelper';
+import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
 import { asyncForEach } from '../../../shared/utils';
-import { ICreateOfferedCourse } from './offeredCourse.interface';
+import { offeredCourseFilterableFields } from './offeredCourse.constants';
+import {
+  ICreateOfferedCourse,
+  IOfferedCourseFilters,
+} from './offeredCourse.interface';
 
 const createOfferedCourses = async (
   data: ICreateOfferedCourse,
@@ -38,6 +46,64 @@ const createOfferedCourses = async (
   return result;
 };
 
+const getAllOfferedCourses = async (
+  filters: IOfferedCourseFilters,
+  options: IPaginationOptions,
+) => {
+  const { searchTerm, ...filtersData } = filters;
+  const { page, limit, skip } = paginationHelpers.calculatePagination(options);
+
+  const andCondition = [];
+
+  if (searchTerm) {
+    andCondition.push({
+      OR: offeredCourseFilterableFields.map(field => ({
+        [field]: {
+          contains: searchTerm,
+          mode: 'insensitive',
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filtersData).length > 0) {
+    andCondition.push({
+      AND: Object.keys(filtersData).map(key => ({
+        [key]: {
+          equals: (filtersData as any)[key],
+        },
+      })),
+    });
+  }
+
+  const whereCondition: Prisma.OfferedCourseWhereInput =
+    andCondition.length > 0 ? { AND: andCondition } : {};
+
+  const result = await prisma.offeredCourse.findMany({
+    where: whereCondition,
+    skip,
+    take: limit,
+    orderBy:
+      options.sortBy && options.sortOrder
+        ? { [options.sortBy]: options.sortOrder }
+        : { createdAt: 'desc' },
+  });
+
+  const total = await prisma.offeredCourse.count({
+    where: whereCondition,
+  });
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: result,
+  };
+};
+
 export const OfferedCourseService = {
   createOfferedCourses,
+  getAllOfferedCourses,
 };
