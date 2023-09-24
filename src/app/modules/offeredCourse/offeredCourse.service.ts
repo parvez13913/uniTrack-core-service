@@ -87,6 +87,11 @@ const getAllOfferedCourses = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : { createdAt: 'desc' },
+    include: {
+      semesterRegistration: true,
+      course: true,
+      academicDepartment: true,
+    },
   });
 
   const total = await prisma.offeredCourse.count({
@@ -110,6 +115,30 @@ const getSingleOfferedCourse = async (
     where: {
       id,
     },
+    include: {
+      semesterRegistration: true,
+      course: true,
+      academicDepartment: true,
+    },
+  });
+
+  return result;
+};
+
+const updateOfferedCourse = async (
+  id: string,
+  payload: Partial<OfferedCourse>,
+): Promise<OfferedCourse> => {
+  const result = await prisma.offeredCourse.update({
+    where: {
+      id,
+    },
+    data: payload,
+    include: {
+      semesterRegistration: true,
+      course: true,
+      academicDepartment: true,
+    },
   });
 
   return result;
@@ -119,4 +148,5 @@ export const OfferedCourseService = {
   createOfferedCourses,
   getAllOfferedCourses,
   getSingleOfferedCourse,
+  updateOfferedCourse,
 };

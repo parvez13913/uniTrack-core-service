@@ -13,6 +13,8 @@ router.post(
 
 router.get('/:id', OfferedCourseController.getSingleOfferedCourse);
 
+router.patch('/:id', OfferedCourseController.updateOfferedCourse);
+
 router.get('/', OfferedCourseController.getAllOfferedCourses);
 
 export const OfferedCourseRouter = router;
