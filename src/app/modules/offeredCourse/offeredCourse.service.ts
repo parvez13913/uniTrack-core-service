@@ -144,9 +144,25 @@ const updateOfferedCourse = async (
   return result;
 };
 
+const deleteOfferedCourse = async (id: string): Promise<OfferedCourse> => {
+  const result = await prisma.offeredCourse.delete({
+    where: {
+      id,
+    },
+    include: {
+      semesterRegistration: true,
+      course: true,
+      academicDepartment: true,
+    },
+  });
+
+  return result;
+};
+
 export const OfferedCourseService = {
   createOfferedCourses,
   getAllOfferedCourses,
   getSingleOfferedCourse,
   updateOfferedCourse,
+  deleteOfferedCourse,
 };

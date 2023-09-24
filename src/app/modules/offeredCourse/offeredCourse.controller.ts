@@ -64,9 +64,22 @@ const updateOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const deleteOfferedCourse = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await OfferedCourseService.deleteOfferedCourse(id);
+
+  sendResponse<OfferedCourse>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Offered Course Deleted Successfully!',
+    data: result,
+  });
+});
+
 export const OfferedCourseController = {
   createOfferedCourses,
   getAllOfferedCourses,
   getSingleOfferedCourse,
   updateOfferedCourse,
+  deleteOfferedCourse,
 };
