@@ -19,6 +19,15 @@ const createOfferedCourseZodSchema = z.object({
   }),
 });
 
+const updateOfferedCourseZodSchema = z.object({
+  body: z.object({
+    semesterRegistrationId: z.string().optional(),
+    courseIds: z.string().optional(),
+    academicDepartmentId: z.string().optional(),
+  }),
+});
+
 export const OfferedCourseValidation = {
   createOfferedCourseZodSchema,
+  updateOfferedCourseZodSchema,
 };
