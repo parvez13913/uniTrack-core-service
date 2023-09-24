@@ -103,7 +103,20 @@ const getAllOfferedCourses = async (
   };
 };
 
+const getSingleOfferedCourse = async (
+  id: string,
+): Promise<OfferedCourse | null> => {
+  const result = await prisma.offeredCourse.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  return result;
+};
+
 export const OfferedCourseService = {
   createOfferedCourses,
   getAllOfferedCourses,
+  getSingleOfferedCourse,
 };
