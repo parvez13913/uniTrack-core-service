@@ -94,6 +94,18 @@ const getAllOfferedCourseSections = async (
   };
 };
 
+const getSingleOfferedCourseSection = async (
+  id: string,
+): Promise<OfferedCourseSection | null> => {
+  const result = await prisma.offeredCourseSection.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  return result;
+};
+
 const updateOfferedCourseSection = async (
   id: string,
   payload: Partial<OfferedCourseSection>,
@@ -112,4 +124,5 @@ export const OfferedCourseSectionService = {
   createOfferedCourseSection,
   getAllOfferedCourseSections,
   updateOfferedCourseSection,
+  getSingleOfferedCourseSection,
 };

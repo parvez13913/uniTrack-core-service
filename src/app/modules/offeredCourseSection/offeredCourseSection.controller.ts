@@ -43,6 +43,22 @@ const getAllOfferedCourseSections = catchAsync(
   },
 );
 
+const getSingleOfferedCourseSection = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const result =
+      await OfferedCourseSectionService.getSingleOfferedCourseSection(id);
+
+    sendResponse<OfferedCourseSection>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Offered course section fetched Successfully!',
+      data: result,
+    });
+  },
+);
+
 const updateOfferedCourseSection = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -55,7 +71,7 @@ const updateOfferedCourseSection = catchAsync(
     sendResponse<OfferedCourseSection>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Offered course section fetched Successfully!',
+      message: 'Offered course section updated Successfully!',
       data: result,
     });
   },
@@ -65,4 +81,5 @@ export const OfferedCourseSectionController = {
   createOfferedCourseSection,
   getAllOfferedCourseSections,
   updateOfferedCourseSection,
+  getSingleOfferedCourseSection,
 };

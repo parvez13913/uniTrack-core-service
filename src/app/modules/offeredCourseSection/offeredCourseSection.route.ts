@@ -8,6 +8,11 @@ router.post(
   OfferedCourseSectionController.createOfferedCourseSection,
 );
 
+router.get(
+  '/:id',
+  OfferedCourseSectionController.getSingleOfferedCourseSection,
+);
+
 router.patch('/:id', OfferedCourseSectionController.updateOfferedCourseSection);
 
 router.get('/', OfferedCourseSectionController.getAllOfferedCourseSections);
