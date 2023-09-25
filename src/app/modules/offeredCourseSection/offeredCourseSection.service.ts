@@ -25,6 +25,13 @@ const createOfferedCourseSection = async (
 
   const result = await prisma.offeredCourseSection.create({
     data,
+    include: {
+      offeredCourse: {
+        include: {
+          course: true,
+        },
+      },
+    },
   });
 
   return result;
@@ -101,6 +108,13 @@ const getSingleOfferedCourseSection = async (
     where: {
       id,
     },
+    include: {
+      offeredCourse: {
+        include: {
+          course: true,
+        },
+      },
+    },
   });
 
   return result;
@@ -115,6 +129,32 @@ const updateOfferedCourseSection = async (
       id,
     },
     data: payload,
+    include: {
+      offeredCourse: {
+        include: {
+          course: true,
+        },
+      },
+    },
+  });
+
+  return result;
+};
+
+const deleteOfferedCourseSection = async (
+  id: string,
+): Promise<OfferedCourseSection | null> => {
+  const result = await prisma.offeredCourseSection.delete({
+    where: {
+      id,
+    },
+    include: {
+      offeredCourse: {
+        include: {
+          course: true,
+        },
+      },
+    },
   });
 
   return result;
@@ -125,4 +165,5 @@ export const OfferedCourseSectionService = {
   getAllOfferedCourseSections,
   updateOfferedCourseSection,
   getSingleOfferedCourseSection,
+  deleteOfferedCourseSection,
 };

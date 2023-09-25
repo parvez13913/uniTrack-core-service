@@ -15,6 +15,11 @@ router.get(
 
 router.patch('/:id', OfferedCourseSectionController.updateOfferedCourseSection);
 
+router.delete(
+  '/:id',
+  OfferedCourseSectionController.deleteOfferedCourseSection,
+);
+
 router.get('/', OfferedCourseSectionController.getAllOfferedCourseSections);
 
 export const OfferedCourseSectionRouter = router;
