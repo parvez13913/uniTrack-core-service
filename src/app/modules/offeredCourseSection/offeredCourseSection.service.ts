@@ -94,7 +94,22 @@ const getAllOfferedCourseSections = async (
   };
 };
 
+const updateOfferedCourseSection = async (
+  id: string,
+  payload: Partial<OfferedCourseSection>,
+): Promise<OfferedCourseSection> => {
+  const result = await prisma.offeredCourseSection.update({
+    where: {
+      id,
+    },
+    data: payload,
+  });
+
+  return result;
+};
+
 export const OfferedCourseSectionService = {
   createOfferedCourseSection,
   getAllOfferedCourseSections,
+  updateOfferedCourseSection,
 };

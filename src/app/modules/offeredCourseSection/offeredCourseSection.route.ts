@@ -8,6 +8,8 @@ router.post(
   OfferedCourseSectionController.createOfferedCourseSection,
 );
 
+router.patch('/:id', OfferedCourseSectionController.updateOfferedCourseSection);
+
 router.get('/', OfferedCourseSectionController.getAllOfferedCourseSections);
 
 export const OfferedCourseSectionRouter = router;

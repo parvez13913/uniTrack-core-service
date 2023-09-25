@@ -43,7 +43,26 @@ const getAllOfferedCourseSections = catchAsync(
   },
 );
 
+const updateOfferedCourseSection = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const payload = req.body;
+    const result = await OfferedCourseSectionService.updateOfferedCourseSection(
+      id,
+      payload,
+    );
+
+    sendResponse<OfferedCourseSection>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Offered course section fetched Successfully!',
+      data: result,
+    });
+  },
+);
+
 export const OfferedCourseSectionController = {
   createOfferedCourseSection,
   getAllOfferedCourseSections,
+  updateOfferedCourseSection,
 };
