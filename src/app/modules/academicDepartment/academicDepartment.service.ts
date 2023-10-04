@@ -111,7 +111,7 @@ const updateAcademicDepartment = async (
 
 const deleteAcademicDepartment = async (
   id: string,
-): Promise<AcademicDepartment> => {
+): Promise<AcademicDepartment | null> => {
   const result = await prisma.academicDepartment.delete({
     where: {
       id,
