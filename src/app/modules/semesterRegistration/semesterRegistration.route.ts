@@ -21,6 +21,11 @@ router.post(
   SemesterRegistrationController.startMySemesterRegistration,
 );
 
+router.post(
+  '/enroll-into-course',
+  SemesterRegistrationController.enrollIntoCourse,
+);
+
 router.get(
   '/:id',
   SemesterRegistrationController.getSingleSemesterRegistration,

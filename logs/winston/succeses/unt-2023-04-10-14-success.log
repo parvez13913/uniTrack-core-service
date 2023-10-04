@@ -2,29 +2,23 @@
   message: 'Server running on port 5000',
   level: 'info',
   label: 'UniTrack',
-  timestamp: '2023-09-19T13:42:53.170Z'
+  timestamp: '2023-10-04T08:01:28.963Z'
 }
 {
   message: 'Server running on port 5000',
   level: 'info',
   label: 'UniTrack',
-  timestamp: '2023-09-19T13:46:35.383Z'
+  timestamp: '2023-10-04T08:01:49.010Z'
 }
 {
   message: 'Server running on port 5000',
   level: 'info',
   label: 'UniTrack',
-  timestamp: '2023-09-19T13:46:51.451Z'
+  timestamp: '2023-10-04T08:02:37.325Z'
 }
 {
   message: 'Server running on port 5000',
   level: 'info',
   label: 'UniTrack',
-  timestamp: '2023-09-19T13:47:47.749Z'
-}
-{
-  message: 'Server running on port 5000',
-  level: 'info',
-  label: 'UniTrack',
-  timestamp: '2023-09-19T13:56:14.305Z'
+  timestamp: '2023-10-04T08:03:31.414Z'
 }
