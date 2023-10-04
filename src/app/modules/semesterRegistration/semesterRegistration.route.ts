@@ -23,10 +23,16 @@ router.post(
 
 router.post(
   '/enroll-into-course',
+  validateRequest(
+    SemesterRegistrationValidation.inrollOrWithdrawCourseZodSchema,
+  ),
   SemesterRegistrationController.enrollIntoCourse,
 );
 router.post(
   '/withdraw-from-course',
+  validateRequest(
+    SemesterRegistrationValidation.inrollOrWithdrawCourseZodSchema,
+  ),
   SemesterRegistrationController.withdrewFromCourse,
 );
 
