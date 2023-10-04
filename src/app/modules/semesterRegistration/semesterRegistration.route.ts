@@ -25,6 +25,10 @@ router.post(
   '/enroll-into-course',
   SemesterRegistrationController.enrollIntoCourse,
 );
+router.post(
+  '/withdraw-from-course',
+  SemesterRegistrationController.withdrewFromCourse,
+);
 
 router.get(
   '/:id',
