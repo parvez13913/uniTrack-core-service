@@ -36,6 +36,11 @@ router.post(
   SemesterRegistrationController.withdrewFromCourse,
 );
 
+router.get(
+  '/get-my-registration',
+  SemesterRegistrationController.getMyRegistration,
+);
+
 router.post(
   '/confirm-my-registration',
   SemesterRegistrationController.confirmMyRegistration,
