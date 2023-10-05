@@ -16,6 +16,11 @@ router.post(
 );
 
 router.post(
+  '/:id/start-new-semester',
+  SemesterRegistrationController.startNewSemester,
+);
+
+router.post(
   '/start-registration',
   auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.startMySemesterRegistration,
