@@ -401,16 +401,33 @@ const startNewSemester = async (id: string) => {
     );
   }
 
-  const updateStatus = await prisma.academicSemester.update({
-    where: {
-      id: semesterRegistration?.academicSemester?.id,
-    },
-    data: {
-      isCurrent: true,
-    },
+  if (semesterRegistration?.academicSemester?.isCurrent) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Semester is already started');
+  }
+
+  await prisma.$transaction(async prismaTransactionClient => {
+    await prismaTransactionClient.academicSemester.updateMany({
+      where: {
+        isCurrent: true,
+      },
+      data: {
+        isCurrent: false,
+      },
+    });
+
+    await prismaTransactionClient.academicSemester.update({
+      where: {
+        id: semesterRegistration?.academicSemester?.id,
+      },
+      data: {
+        isCurrent: true,
+      },
+    });
   });
 
-  return updateStatus;
+  return {
+    message: 'Semester started successfully',
+  };
 };
 
 export const SemesterRegistrationService = {
