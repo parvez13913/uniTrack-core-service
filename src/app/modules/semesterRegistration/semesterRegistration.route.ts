@@ -28,6 +28,7 @@ router.post(
 
 router.post(
   '/enroll-into-course',
+  auth(ENUM_USER_ROLE.STUDENT),
   validateRequest(
     SemesterRegistrationValidation.inrollOrWithdrawCourseZodSchema,
   ),
@@ -35,6 +36,7 @@ router.post(
 );
 router.post(
   '/withdraw-from-course',
+  auth(ENUM_USER_ROLE.STUDENT),
   validateRequest(
     SemesterRegistrationValidation.inrollOrWithdrawCourseZodSchema,
   ),
@@ -43,11 +45,13 @@ router.post(
 
 router.get(
   '/get-my-registration',
+  auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.getMyRegistration,
 );
 
 router.post(
   '/confirm-my-registration',
+  auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.confirmMyRegistration,
 );
 

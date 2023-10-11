@@ -1,7 +1,11 @@
 import {
+  Course,
+  OfferedCourse,
   SemesterRegistration,
   StudentSemesterRegistration,
+  StudentSemesterRegistrationCourse,
 } from '@prisma/client';
+import { asyncForEach } from './../../../shared/utils';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Prisma, SemesterRegistrationStatus } from '@prisma/client';
 import httpStatus from 'http-status';
@@ -10,7 +14,7 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { StudentSemesterRegistrationCourse } from '../studentSemesterRegistrationCourse/studentSemesterRegistrationCourse.service';
+import { studentSemesterRegistrationCourseService } from '../studentSemesterRegistrationCourse/studentSemesterRegistrationCourse.service';
 import { semesterRegistrationFilterableFields } from './semesterRegistration.constants';
 import {
   IEnrollCourse,
@@ -260,7 +264,7 @@ const enrollIntoCourse = async (
 ): Promise<{
   message: string;
 }> => {
-  return StudentSemesterRegistrationCourse.enrollIntoCourse(
+  return studentSemesterRegistrationCourseService.enrollIntoCourse(
     authUserId,
     payload,
   );
@@ -272,7 +276,7 @@ const withdrewFromCourse = async (
 ): Promise<{
   message: string;
 }> => {
-  return StudentSemesterRegistrationCourse.withdrewFromCourse(
+  return studentSemesterRegistrationCourseService.withdrewFromCourse(
     authUserId,
     payload,
   );
@@ -377,7 +381,11 @@ const getMyRegistration = async (authUserId: string) => {
   };
 };
 
-const startNewSemester = async (id: string) => {
+const startNewSemester = async (
+  id: string,
+): Promise<{
+  message: string;
+}> => {
   const semesterRegistration = await prisma.semesterRegistration.findUnique({
     where: {
       id,
@@ -417,12 +425,79 @@ const startNewSemester = async (id: string) => {
 
     await prismaTransactionClient.academicSemester.update({
       where: {
-        id: semesterRegistration?.academicSemester?.id,
+        id: semesterRegistration?.academicSemesterId,
       },
       data: {
         isCurrent: true,
       },
     });
+
+    const studentSemesterRegistrations =
+      await prisma.studentSemesterRegistration.findMany({
+        where: {
+          semesterRegistration: {
+            id,
+          },
+          isConfirmed: true,
+        },
+      });
+
+    asyncForEach(
+      studentSemesterRegistrations,
+      async (studentSemReg: StudentSemesterRegistration) => {
+        const studentSemesterRegistrationCourses =
+          await prisma.studentSemesterRegistrationCourse.findMany({
+            where: {
+              semesterRegistration: {
+                id,
+              },
+              student: {
+                id: studentSemReg.studentId,
+              },
+            },
+
+            include: {
+              offeredCourse: {
+                include: {
+                  course: true,
+                },
+              },
+            },
+          });
+
+        asyncForEach(
+          studentSemesterRegistrationCourses,
+          async (
+            item: StudentSemesterRegistrationCourse & {
+              offeredCourse: OfferedCourse & {
+                course: Course;
+              };
+            },
+          ) => {
+            const isExistEnrolledData =
+              await prisma.studentEnrolledCourse.findFirst({
+                where: {
+                  studentId: item?.studentId,
+                  courseId: item?.offeredCourse?.courseId,
+                  academicSemesterId: semesterRegistration?.academicSemesterId,
+                },
+              });
+
+            if (!isExistEnrolledData) {
+              const enrolledCourseData = {
+                studentId: item?.studentId,
+                courseId: item?.offeredCourse?.courseId,
+                academicSemesterId: semesterRegistration?.academicSemesterId,
+              };
+
+              await prisma.studentEnrolledCourse.create({
+                data: enrolledCourseData,
+              });
+            }
+          },
+        );
+      },
+    );
   });
 
   return {

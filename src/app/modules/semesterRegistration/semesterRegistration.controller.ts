@@ -112,6 +112,7 @@ const startMySemesterRegistration = catchAsync(
 const enrollIntoCourse = catchAsync(async (req: Request, res: Response) => {
   const { ...data } = req.body;
   const user = (req as any).user;
+
   const result = await SemesterRegistrationService.enrollIntoCourse(
     user?.userId,
     data,
@@ -142,9 +143,11 @@ const withdrewFromCourse = catchAsync(async (req: Request, res: Response) => {
 const confirmMyRegistration = catchAsync(
   async (req: Request, res: Response) => {
     const user = (req as any).user;
+
     const result = await SemesterRegistrationService.confirmMyRegistration(
       user?.userId,
     );
+
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,

@@ -94,7 +94,7 @@ const enrollIntoCourse = async (
       },
       data: {
         totalCreditsTaken: {
-          increment: offeredCourse.course.credits,
+          increment: offeredCourse?.course?.credits,
         },
       },
     });
@@ -188,7 +188,7 @@ const withdrewFromCourse = async (
   };
 };
 
-export const StudentSemesterRegistrationCourse = {
+export const studentSemesterRegistrationCourseService = {
   enrollIntoCourse,
   withdrewFromCourse,
 };
