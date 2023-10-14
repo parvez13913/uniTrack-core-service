@@ -6,6 +6,7 @@ import {
   StudentSemesterRegistrationCourse,
 } from '@prisma/client';
 import { asyncForEach } from './../../../shared/utils';
+import { StudentEnrolledCourseDefaultMarkService } from './../studentEnrolledCourseMark/studentEnrolledCourseMark.service';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Prisma, SemesterRegistrationStatus } from '@prisma/client';
 import httpStatus from 'http-status';
@@ -505,9 +506,19 @@ const startNewSemester = async (
                 academicSemesterId: semesterRegistration?.academicSemesterId,
               };
 
-              await prismaTransactionClient.studentEnrolledCourse.create({
-                data: enrolledCourseData,
-              });
+              const studentEnrolledCourseData =
+                await prismaTransactionClient.studentEnrolledCourse.create({
+                  data: enrolledCourseData,
+                });
+
+              await StudentEnrolledCourseDefaultMarkService.studentEnrolledCourseDefaultMark(
+                prismaTransactionClient,
+                {
+                  studentId: item.studentId,
+                  studentEnrolledCourseId: studentEnrolledCourseData.id,
+                  academicSemesterId: semesterRegistration.academicSemesterId,
+                },
+              );
             }
           },
         );
