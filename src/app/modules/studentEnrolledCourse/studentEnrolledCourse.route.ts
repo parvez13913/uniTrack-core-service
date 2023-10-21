@@ -5,6 +5,8 @@ import { StudentEnrolledCourseController } from './studentEnrolledCourse.control
 
 const router = express.Router();
 
+router.get('/', StudentEnrolledCourseController.getAllStudentEnrolledCourse);
+
 router.post(
   '/',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
