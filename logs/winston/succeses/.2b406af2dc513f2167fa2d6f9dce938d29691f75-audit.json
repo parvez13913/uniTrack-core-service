@@ -6,56 +6,6 @@
     "auditLog": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\.2b406af2dc513f2167fa2d6f9dce938d29691f75-audit.json",
     "files": [
         {
-            "date": 1696065872792,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-30-09-15-success.log",
-            "hash": "4a9e112070f004db1261bd0628a1d6030660e4913d328b82e1581f75efb9d843"
-        },
-        {
-            "date": 1696068052987,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-30-09-16-success.log",
-            "hash": "ed5c49e491fe6543f93a6f367ddc8ae5aaedf93fec210fea0f9ab87fa8cf0df2"
-        },
-        {
-            "date": 1696071814312,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-30-09-17-success.log",
-            "hash": "1ed642780d491938809da1ed9ad172b25c29327b9db54f98376d64fb6a174f12"
-        },
-        {
-            "date": 1696406335452,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-04-10-13-success.log",
-            "hash": "80e5b478f257aef54707d554f93513bcd94b7c862cfcf1e4ba89e87feef5b1e2"
-        },
-        {
-            "date": 1696406488217,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-04-10-14-success.log",
-            "hash": "5a392fddb6eb002b6b514baa6d0cb496c4bbe60386d34e17d507c98d94b1a3b9"
-        },
-        {
-            "date": 1696411882514,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-04-10-15-success.log",
-            "hash": "e7f673af60f084ad5c9300acd962d94c62176ec3f99034a99b584ee5fa620bbc"
-        },
-        {
-            "date": 1696413786207,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-04-10-16-success.log",
-            "hash": "b739263173afea57faca8bc534eedf91013954fb01ac81515754d7eb3a81eac2"
-        },
-        {
-            "date": 1696480557744,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-05-10-10-success.log",
-            "hash": "a85268cd240215e0e61cc98e5a4ceb9db3d3be9c7bdcaa0547f1c0f9ed8a8ebb"
-        },
-        {
-            "date": 1696521130771,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-05-10-21-success.log",
-            "hash": "8096ad5eb4c0e565bd227d733f9ced816f32ed9b018932b29cd61308654f2ee3"
-        },
-        {
-            "date": 1696521834602,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-05-10-22-success.log",
-            "hash": "84252f6ea1f2b1ecefaabf66c29e1a3b23f3060795ecb8194c4bb47672800c33"
-        },
-        {
             "date": 1696909005019,
             "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-10-10-09-success.log",
             "hash": "2484af85c22eac700c84ac87d2f7eb9fcd7d676ccba22181aabe2169fc932d93"
@@ -104,6 +54,21 @@
             "date": 1697263230883,
             "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-14-10-12-success.log",
             "hash": "a8a4e10b5881a320b67d045c61d5f5d20634274570540c9307e80f2c834842c1"
+        },
+        {
+            "date": 1697643252295,
+            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-18-10-21-success.log",
+            "hash": "d880a47f1e23df741b6e6fbba4a03a39f6fc98a32888fe10e3c16b2cd08fd368"
+        },
+        {
+            "date": 1697878006672,
+            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-21-10-14-success.log",
+            "hash": "23f8c622d3834ab3353c8c94dbdcdd3a326e43d4ae5ea696be3138ff43ea9716"
+        },
+        {
+            "date": 1697878877218,
+            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-21-10-15-success.log",
+            "hash": "258aabc4f9c52284022d87e4e40897ae774828e13c9bd5c426e3f1eb4f1ced82"
         }
     ],
     "hashType": "sha256"
