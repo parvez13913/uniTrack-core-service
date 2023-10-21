@@ -53,7 +53,7 @@ const createStudentEnrolledCourse = async (
   return result;
 };
 
-const getAllStudentEnrolledCourse = async (
+const getAllStudentEnrolledCourses = async (
   filters: IStudentEnrolledCourseFilterRequest,
   options: IPaginationOptions,
 ): Promise<IGenericResponse<StudentEnrolledCourse[]>> => {
@@ -138,7 +138,24 @@ const getAllStudentEnrolledCourse = async (
   };
 };
 
+const getSingleStudentEnrolledCourse = async (
+  id: string,
+): Promise<StudentEnrolledCourse | null> => {
+  const result = await prisma.studentEnrolledCourse.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      academicSemester: true,
+      student: true,
+      course: true,
+    },
+  });
+  return result;
+};
+
 export const StudentEnrolledCourseService = {
   createStudentEnrolledCourse,
-  getAllStudentEnrolledCourse,
+  getAllStudentEnrolledCourses,
+  getSingleStudentEnrolledCourse,
 };

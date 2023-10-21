@@ -22,12 +22,12 @@ const createStudentEnrolledCourse = catchAsync(
   },
 );
 
-const getAllStudentEnrolledCourse = catchAsync(
+const getAllStudentEnrolledCourses = catchAsync(
   async (req: Request, res: Response) => {
     const filters = pick(req.query, studentEnrolledCourseFilterableFields);
     const options = pick(req.query, paginationFields);
     const result =
-      await StudentEnrolledCourseService.getAllStudentEnrolledCourse(
+      await StudentEnrolledCourseService.getAllStudentEnrolledCourses(
         filters,
         options,
       );
@@ -41,7 +41,22 @@ const getAllStudentEnrolledCourse = catchAsync(
   },
 );
 
+const getSingleStudentEnrolledCourse = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result =
+      await StudentEnrolledCourseService.getSingleStudentEnrolledCourse(id);
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'StudentEnrolledCourse fetched successfully',
+      data: result,
+    });
+  },
+);
+
 export const StudentEnrolledCourseController = {
   createStudentEnrolledCourse,
-  getAllStudentEnrolledCourse,
+  getAllStudentEnrolledCourses,
+  getSingleStudentEnrolledCourse,
 };

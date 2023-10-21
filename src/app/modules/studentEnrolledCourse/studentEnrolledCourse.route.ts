@@ -5,7 +5,12 @@ import { StudentEnrolledCourseController } from './studentEnrolledCourse.control
 
 const router = express.Router();
 
-router.get('/', StudentEnrolledCourseController.getAllStudentEnrolledCourse);
+router.get('/', StudentEnrolledCourseController.getAllStudentEnrolledCourses);
+
+router.get(
+  '/:id',
+  StudentEnrolledCourseController.getSingleStudentEnrolledCourse,
+);
 
 router.post(
   '/',
