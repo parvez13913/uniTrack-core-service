@@ -73,9 +73,24 @@ const updateStudentEnrolledCourse = catchAsync(
   },
 );
 
+const deleteStudentEnrolledCourse = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result =
+      await StudentEnrolledCourseService.deleteStudentEnrolledCourse(id);
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'StudentEnrolledCourse deleted successfully',
+      data: result,
+    });
+  },
+);
+
 export const StudentEnrolledCourseController = {
   createStudentEnrolledCourse,
   getAllStudentEnrolledCourses,
   getSingleStudentEnrolledCourse,
   updateStudentEnrolledCourse,
+  deleteStudentEnrolledCourse,
 };

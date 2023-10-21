@@ -18,6 +18,12 @@ router.patch(
   StudentEnrolledCourseController.updateStudentEnrolledCourse,
 );
 
+router.delete(
+  '/:id',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  StudentEnrolledCourseController.deleteStudentEnrolledCourse,
+);
+
 router.post(
   '/',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
