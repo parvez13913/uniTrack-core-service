@@ -12,6 +12,12 @@ router.get(
   StudentEnrolledCourseController.getSingleStudentEnrolledCourse,
 );
 
+router.patch(
+  '/:id',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  StudentEnrolledCourseController.updateStudentEnrolledCourse,
+);
+
 router.post(
   '/',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),

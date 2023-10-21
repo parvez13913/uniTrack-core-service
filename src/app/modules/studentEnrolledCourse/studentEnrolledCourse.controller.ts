@@ -55,8 +55,27 @@ const getSingleStudentEnrolledCourse = catchAsync(
   },
 );
 
+const updateStudentEnrolledCourse = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { updatedData } = req.body;
+    const result =
+      await StudentEnrolledCourseService.updateStudentEnrolledCourse(
+        id,
+        updatedData,
+      );
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'StudentEnrolledCourse updated successfully',
+      data: result,
+    });
+  },
+);
+
 export const StudentEnrolledCourseController = {
   createStudentEnrolledCourse,
   getAllStudentEnrolledCourses,
   getSingleStudentEnrolledCourse,
+  updateStudentEnrolledCourse,
 };
