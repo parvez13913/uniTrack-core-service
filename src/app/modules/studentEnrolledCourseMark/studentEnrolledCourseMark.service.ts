@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ExamType,
@@ -9,11 +8,14 @@ import {
   DefaultArgs,
   PrismaClientOptions,
 } from '@prisma/client/runtime/library';
+import httpStatus from 'http-status';
+import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
 import { IStudentEnrolledCourseMarkFilterRequest } from './studentEnrolledCourseMark.interface';
+import { StudentEnrolledCourseMarksUtils } from './studentEnrolledCourseMark.utils';
 
 const studentEnrolledCourseDefaultMark = async (
   prismaClient: Omit<
@@ -148,7 +150,47 @@ const getAllStudentEnrolledCourseMarks = async (
 };
 
 const updateStudentMarks = async (payload: any) => {
-  console.log(payload);
+  const { studentId, academicSemesterId, courseId, examType, marks } = payload;
+
+  const studentEnrolledCourseMarks =
+    await prisma.studentEnrolledCourseMark.findFirst({
+      where: {
+        student: {
+          id: studentId,
+        },
+        academicSemester: {
+          id: academicSemesterId,
+        },
+        studentEnrolledCourse: {
+          course: {
+            id: courseId,
+          },
+        },
+
+        examType,
+      },
+    });
+
+  if (!studentEnrolledCourseMarks) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      'Student enrolled course mark not found',
+    );
+  }
+
+  const result = StudentEnrolledCourseMarksUtils.getGradeFromMarks(marks);
+
+  const updateStudentMarks = await prisma.studentEnrolledCourseMark.update({
+    where: {
+      id: studentEnrolledCourseMarks?.id,
+    },
+    data: {
+      marks,
+      grade: (await result).grade,
+    },
+  });
+
+  return updateStudentMarks;
 };
 
 export const StudentEnrolledCourseDefaultMarkService = {
