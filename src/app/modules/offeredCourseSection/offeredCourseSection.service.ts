@@ -8,10 +8,14 @@ import prisma from '../../../shared/prisma';
 import { asyncForEach } from '../../../shared/utils';
 import { OfferedCourseClassScheduleUtils } from '../offeredCourseClassSchedule/offeredCourseClassSchedule.utils';
 import { offeredCourseSectionFilterableFields } from './offeredCourseSection.constants';
-import { IOfferedCourseSectionFilters } from './offeredCourseSection.interface';
+import {
+  IClassSchedule,
+  IOfferedCourseSectionCreate,
+  IOfferedCourseSectionFilters,
+} from './offeredCourseSection.interface';
 
 const createOfferedCourseSection = async (
-  payload: OfferedCourseSection,
+  payload: IOfferedCourseSectionCreate,
 ): Promise<OfferedCourseSection | null> => {
   const { classSchedules, ...data } = payload;
 
@@ -24,8 +28,6 @@ const createOfferedCourseSection = async (
   if (!isExistOfferedCourse) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Offerde course does not exist');
   }
-
-  data.semesterRegistrationId = isExistOfferedCourse.semesterRegistrationId;
 
   await asyncForEach(classSchedules, async (schedule: any) => {
     await OfferedCourseClassScheduleUtils.checkRoomAvailable(schedule);
@@ -48,7 +50,12 @@ const createOfferedCourseSection = async (
   const createSection = await prisma.$transaction(async transactionClient => {
     const createOfferedCourseSection =
       await transactionClient.offeredCourseSection.create({
-        data,
+        data: {
+          title: data.title,
+          maxCapacity: data.maxCapacity,
+          offeredCourseId: data.offeredCourseId,
+          semesterRegistrationId: isExistOfferedCourse.semesterRegistrationId,
+        },
         include: {
           offeredCourse: {
             include: {
@@ -58,7 +65,7 @@ const createOfferedCourseSection = async (
         },
       });
 
-    const scheduleData = classSchedules.map((schedule: any) => ({
+    const scheduleData = classSchedules.map((schedule: IClassSchedule) => ({
       startTime: schedule.startTime,
       endTime: schedule.endTime,
       dayOfWeek: schedule.dayOfWeek,
