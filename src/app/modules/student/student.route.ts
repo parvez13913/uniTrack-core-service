@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post(
   '/create-student',
-  // auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(StudentValidation.createStudentZodSchema),
   StudentController.createStudent,
 );
@@ -19,6 +19,12 @@ router.patch(
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(StudentValidation.updateStudentZodSchema),
   StudentController.updateStudent,
+);
+
+router.get(
+  '/my-courses',
+  auth(ENUM_USER_ROLE.STUDENT),
+  StudentController.myCourses,
 );
 
 router.get('/:id', StudentController.getSingleStudent);
