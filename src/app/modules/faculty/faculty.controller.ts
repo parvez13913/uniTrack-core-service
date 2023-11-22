@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CourseFaculty, Faculty } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
@@ -84,6 +85,19 @@ const assignCourses = async (req: Request, res: Response) => {
   });
 };
 
+const myCourse = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  const filter = pick(req.query, ['academicSemesterId', 'courseId']);
+  const result = await FacultyService.myCourse(user.userId, filter);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Faculty courses deta fetched successfully',
+    data: result,
+  });
+});
+
 const removeCourses = async (req: Request, res: Response) => {
   const { id } = req.params;
   const payload = req.body.courses;
@@ -106,4 +120,5 @@ export const FacultController = {
   deleteFaculty,
   assignCourses,
   removeCourses,
+  myCourse,
 };

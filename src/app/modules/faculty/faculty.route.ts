@@ -14,6 +14,12 @@ router.post(
   FacultController.createFaculty,
 );
 
+router.get(
+  '/my-course',
+  auth(ENUM_USER_ROLE.FACULTY),
+  FacultController.myCourse,
+);
+
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
