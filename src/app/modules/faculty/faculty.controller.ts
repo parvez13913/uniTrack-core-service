@@ -88,7 +88,7 @@ const assignCourses = async (req: Request, res: Response) => {
 const myCourse = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
   const filter = pick(req.query, ['academicSemesterId', 'courseId']);
-  const result = await FacultyService.myCourse(user.userId, filter);
+  const result = await FacultyService.myCourse(user, filter);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

@@ -144,7 +144,7 @@ const assignCourses = async (
 };
 
 const myCourse = async (
-  authUserId: { userId: string; role: string },
+  authUser: { userId: string; role: string },
   filter: {
     academicSemesterId?: string | null | undefined;
     courseId?: string | null | undefined;
@@ -165,7 +165,7 @@ const myCourse = async (
       offeredCourseClassSchedules: {
         some: {
           faculty: {
-            facultyId: authUserId.userId,
+            facultyId: authUser.userId,
           },
         },
       },
