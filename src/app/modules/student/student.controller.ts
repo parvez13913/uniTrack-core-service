@@ -96,6 +96,17 @@ const getMyCourseSchedules = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const myAcademicInfo = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  const result = await StudentService.myAcademicInfo(user.userId);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'My academic info deta fetched successfully',
+    data: result,
+  });
+});
+
 export const StudentController = {
   createStudent,
   getAllStudents,
@@ -104,4 +115,5 @@ export const StudentController = {
   deleteStudent,
   myCourses,
   getMyCourseSchedules,
+  myAcademicInfo,
 };
