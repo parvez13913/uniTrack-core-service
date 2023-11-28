@@ -7,27 +7,27 @@ import { AcademicFacultyValidation } from './academicFaculty.validation';
 
 const router = express.Router();
 
+router.get('/', AcademicFacultyController.getAllAcademicFaculties);
+router.get('/:id', AcademicFacultyController.getSingleAcademicFaculty);
+
 router.post(
   '/create-academicFaculty',
   validateRequest(AcademicFacultyValidation.createAcademicFacultyZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   AcademicFacultyController.createAcademicFaculty,
 );
 
-router.get('/:id', AcademicFacultyController.getSingleAcademicFaculty);
-
 router.patch(
   '/:id',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   validateRequest(AcademicFacultyValidation.updateAcademicFacultyZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   AcademicFacultyController.updateAcademicFaculty,
 );
 
 router.delete(
   '/:id',
-  // auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   AcademicFacultyController.deleteAcademicFaculty,
 );
-
-router.get('/', AcademicFacultyController.getAllAcademicFaculties);
 
 export const AcademicFacultyRouter = router;
