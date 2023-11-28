@@ -7,18 +7,21 @@ import { AcademicSemesterValidation } from './academicSemester.validation';
 
 const router = express.Router();
 
-router.post(
-  '/create-academicSemester',
-  validateRequest(AcademicSemesterValidation.createAcademicSemesterZodSchema),
-  AcademicSemesterController.createAcademicSemister,
-);
+router.get('/', AcademicSemesterController.getAllAcademicSemesters);
 
 router.get('/:id', AcademicSemesterController.getSingleAcademicSemester);
 
+router.post(
+  '/create-academicSemester',
+  validateRequest(AcademicSemesterValidation.createAcademicSemesterZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  AcademicSemesterController.createAcademicSemister,
+);
+
 router.patch(
   '/:id',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(AcademicSemesterValidation.updateAcademicSemesterZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   AcademicSemesterController.updateAcademicSemester,
 );
 
@@ -27,7 +30,5 @@ router.delete(
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   AcademicSemesterController.deleteAcademicSenester,
 );
-
-router.get('/', AcademicSemesterController.getAllAcademicSemesters);
 
 export const AcademicSemesterRouter = router;
