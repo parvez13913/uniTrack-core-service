@@ -14,6 +14,15 @@ router.get(
   StudentEnrolledCourseController.getSingleStudentEnrolledCourse,
 );
 
+router.post(
+  '/',
+  validateRequest(
+    StudentEnrolledCourseValidation.createStudentEnrolledCourseZodSchema,
+  ),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  StudentEnrolledCourseController.createStudentEnrolledCourse,
+);
+
 router.patch(
   '/:id',
   validateRequest(
@@ -27,15 +36,6 @@ router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   StudentEnrolledCourseController.deleteStudentEnrolledCourse,
-);
-
-router.post(
-  '/',
-  validateRequest(
-    StudentEnrolledCourseValidation.createStudentEnrolledCourseZodSchema,
-  ),
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
-  StudentEnrolledCourseController.createStudentEnrolledCourse,
 );
 
 export const StudentEnrolledCourseRoute = router;
