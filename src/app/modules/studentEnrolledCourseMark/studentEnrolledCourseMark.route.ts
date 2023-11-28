@@ -7,17 +7,23 @@ import { StudentEnrolledCourseMarkValidation } from './studentEnrolledCourseMark
 
 const router = express.Router();
 
+router.get(
+  '/',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY),
+  StudentEnrolledCourseMarkController.getAllStudentEnrolledCourseMarks,
+);
+
+router.get(
+  '/my-marks',
+  auth(ENUM_USER_ROLE.STUDENT),
+  StudentEnrolledCourseMarkController.getMyCourseMarks,
+);
+
 router.patch(
   '/update-marks',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY),
   validateRequest(StudentEnrolledCourseMarkValidation.updateStudentMarks),
   StudentEnrolledCourseMarkController.updateStudentMarks,
-);
-
-router.patch(
-  '/my-marks',
-  auth(ENUM_USER_ROLE.STUDENT),
-  StudentEnrolledCourseMarkController.getMyCourseMarks,
 );
 
 router.patch(
@@ -27,12 +33,6 @@ router.patch(
     StudentEnrolledCourseMarkValidation.updateStudentCourseFinalMarks,
   ),
   StudentEnrolledCourseMarkController.updateFinalMarks,
-);
-
-router.get(
-  '/',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY),
-  StudentEnrolledCourseMarkController.getAllStudentEnrolledCourseMarks,
 );
 
 export const StudentEnrolledCourseMarkRoute = router;
