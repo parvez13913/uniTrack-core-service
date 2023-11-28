@@ -7,11 +7,19 @@ const router = express.Router();
 
 router.patch(
   '/update-marks',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY),
   StudentEnrolledCourseMarkController.updateStudentMarks,
 );
 
 router.patch(
+  '/my-marks',
+  auth(ENUM_USER_ROLE.STUDENT),
+  StudentEnrolledCourseMarkController.getMyCourseMarks,
+);
+
+router.patch(
   '/update-final-marks',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY),
   StudentEnrolledCourseMarkController.updateFinalMarks,
 );
 

@@ -98,7 +98,7 @@ const myCourse = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const removeCourses = async (req: Request, res: Response) => {
+const removeCourses = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const payload = req.body.courses;
 
@@ -110,9 +110,9 @@ const removeCourses = async (req: Request, res: Response) => {
     message: 'Course Faculties Deleted Successfully!!',
     data: result,
   });
-};
+});
 
-const getMyCourseStudents = async (req: Request, res: Response) => {
+const getMyCourseStudents = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
   const filters = pick(req.query, [
     'academicSemesterId',
@@ -133,7 +133,7 @@ const getMyCourseStudents = async (req: Request, res: Response) => {
     meta: result.meta,
     data: result.data,
   });
-};
+});
 
 export const FacultController = {
   createFaculty,
