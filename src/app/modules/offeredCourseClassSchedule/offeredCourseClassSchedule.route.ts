@@ -17,4 +17,9 @@ router.post(
   OfferedCourseClassScheduleController.createOfferedCourseClassSchedule,
 );
 
+router.patch(
+  '/:id',
+  OfferedCourseClassScheduleController.updateOfferedCourseClassSchedule,
+);
+
 export const OfferedCourseClassScheduleRouter = router;

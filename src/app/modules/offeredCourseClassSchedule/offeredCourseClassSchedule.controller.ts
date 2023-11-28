@@ -65,8 +65,27 @@ const getSingleOfferedCourseClassSchedule = catchAsync(
   },
 );
 
+const updateOfferedCourseClassSchedule = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const payload = req.body;
+    const result =
+      await OfferedCourseClassScheduleService.updateOfferedCourseClassSchedule(
+        id,
+        payload,
+      );
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'OfferedCourseClassSchedule updated successfully',
+      data: result,
+    });
+  },
+);
+
 export const OfferedCourseClassScheduleController = {
   createOfferedCourseClassSchedule,
   getAllOfferedCourseClassSchedule,
   getSingleOfferedCourseClassSchedule,
+  updateOfferedCourseClassSchedule,
 };

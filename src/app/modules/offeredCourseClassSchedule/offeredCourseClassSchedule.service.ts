@@ -119,8 +119,27 @@ const getSingleOfferedCourseClassSchedule = async (
   return result;
 };
 
+const updateOfferedCourseClassSchedule = async (
+  id: string,
+  payload: Partial<OfferedCourseClassSchedule>,
+): Promise<OfferedCourseClassSchedule> => {
+  const result = await prisma.offeredCourseClassSchedule.update({
+    where: {
+      id,
+    },
+    data: payload,
+    include: {
+      offeredCourseSection: true,
+      faculty: true,
+      room: true,
+    },
+  });
+  return result;
+};
+
 export const OfferedCourseClassScheduleService = {
   createOfferedCourseClassSchedule,
   getAllOfferedCourseClassSchedule,
   getSingleOfferedCourseClassSchedule,
+  updateOfferedCourseClassSchedule,
 };
