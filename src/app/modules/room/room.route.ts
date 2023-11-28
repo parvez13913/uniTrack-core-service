@@ -7,14 +7,15 @@ import { RoomValidation } from './room.validation';
 
 const router = express.Router();
 
+router.get('/', RoomController.getAllRooms);
+router.get('/:id', RoomController.getSingleRoom);
+
 router.post(
   '/create-room',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(RoomValidation.createRoomZodSchema),
   RoomController.createRoom,
 );
-
-router.get('/:id', RoomController.getSingleRoom);
 
 router.patch(
   '/:id',
@@ -28,7 +29,5 @@ router.delete(
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   RoomController.deleteRoom,
 );
-
-router.get('/', RoomController.getAllRooms);
 
 export const RoomRouter = router;
