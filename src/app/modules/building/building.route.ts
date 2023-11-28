@@ -7,19 +7,20 @@ import { BuildingValidation } from './building.validation';
 
 const router = express.Router();
 
+router.get('/', BuildingController.getAllBuilding);
+router.get('/:id', BuildingController.getSingleBuilding);
+
 router.post(
   '/create-building',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(BuildingValidation.createBuildingZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   BuildingController.createBuilding,
 );
 
-router.get('/:id', BuildingController.getSingleBuilding);
-
 router.patch(
   '/:id',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(BuildingValidation.updateBuildingZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   BuildingController.updateBuilding,
 );
 
@@ -28,7 +29,5 @@ router.delete(
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   BuildingController.deleteBuilding,
 );
-
-router.get('/', BuildingController.getAllBuilding);
 
 export const BuildingRouter = router;
