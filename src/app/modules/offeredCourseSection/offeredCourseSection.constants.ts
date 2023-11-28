@@ -6,3 +6,13 @@ export const offeredCourseSectionFilterableFields: string[] = [
 ];
 
 export const offeredCourseSectionSearchableFields: string[] = [];
+
+export const daysInWeek = [
+  'SATURDAY',
+  'SUNDAY',
+  'MONDAY',
+  'TUESDAY',
+  'WEDNESDAY',
+  'THURSDAY',
+  'FRIDAY',
+];
