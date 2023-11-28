@@ -7,6 +7,28 @@ import { StudentValidation } from './student.validation';
 
 const router = express.Router();
 
+router.get('/', StudentController.getAllStudents);
+
+router.get(
+  '/my-courses',
+  auth(ENUM_USER_ROLE.STUDENT),
+  StudentController.myCourses,
+);
+
+router.get(
+  '/my-courses-schedules',
+  auth(ENUM_USER_ROLE.STUDENT),
+  StudentController.getMyCourseSchedules,
+);
+
+router.get(
+  '/my-academic-info',
+  auth(ENUM_USER_ROLE.STUDENT),
+  StudentController.myAcademicInfo,
+);
+
+router.get('/:id', StudentController.getSingleStudent);
+
 router.post(
   '/create-student',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
@@ -21,32 +43,10 @@ router.patch(
   StudentController.updateStudent,
 );
 
-router.get(
-  '/my-courses-schedules',
-  auth(ENUM_USER_ROLE.STUDENT),
-  StudentController.getMyCourseSchedules,
-);
-
-router.get(
-  '/my-courses',
-  auth(ENUM_USER_ROLE.STUDENT),
-  StudentController.myCourses,
-);
-
-router.get(
-  '/my-academic-info',
-  auth(ENUM_USER_ROLE.STUDENT),
-  StudentController.myAcademicInfo,
-);
-
-router.get('/:id', StudentController.getSingleStudent);
-
 router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   StudentController.deleteStudent,
 );
-
-router.get('/', StudentController.getAllStudents);
 
 export const StudentRouter = router;
