@@ -20,6 +20,12 @@ router.get(
   FacultController.myCourse,
 );
 
+router.get(
+  '/my-course-students',
+  auth(ENUM_USER_ROLE.FACULTY),
+  FacultController.getMyCourseStudents,
+);
+
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
