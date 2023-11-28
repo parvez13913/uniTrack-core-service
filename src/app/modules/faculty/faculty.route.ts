@@ -7,23 +7,24 @@ import { FacultyValidation } from './faculty.validation';
 
 const router = express.Router();
 
-router.post(
-  '/create-faculty',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
-  validateRequest(FacultyValidation.createFacultyZodSchema),
-  FacultController.createFaculty,
-);
-
+router.get('/', FacultController.getAllFaculties);
 router.get(
   '/my-course',
   auth(ENUM_USER_ROLE.FACULTY),
   FacultController.myCourse,
 );
-
+router.get('/:id', FacultController.getSingleFaculty);
 router.get(
   '/my-course-students',
   auth(ENUM_USER_ROLE.FACULTY),
   FacultController.getMyCourseStudents,
+);
+
+router.post(
+  '/create-faculty',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  validateRequest(FacultyValidation.createFacultyZodSchema),
+  FacultController.createFaculty,
 );
 
 router.patch(
@@ -32,8 +33,6 @@ router.patch(
   validateRequest(FacultyValidation.updateFacultyZodSchema),
   FacultController.updateFaculty,
 );
-
-router.get('/:id', FacultController.getSingleFaculty);
 
 router.delete(
   '/:id',
@@ -54,7 +53,5 @@ router.delete(
   validateRequest(FacultyValidation.assignOrRemoveCoursesZodSchema),
   FacultController.removeCourses,
 );
-
-router.get('/', FacultController.getAllFaculties);
 
 export const FacultyRouter = router;
