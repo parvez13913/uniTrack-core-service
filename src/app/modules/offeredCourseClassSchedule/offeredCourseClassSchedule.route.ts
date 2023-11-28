@@ -22,4 +22,9 @@ router.patch(
   OfferedCourseClassScheduleController.updateOfferedCourseClassSchedule,
 );
 
+router.delete(
+  '/:id',
+  OfferedCourseClassScheduleController.deleteOfferedCourseClassSchedule,
+);
+
 export const OfferedCourseClassScheduleRouter = router;

@@ -83,9 +83,26 @@ const updateOfferedCourseClassSchedule = catchAsync(
   },
 );
 
+const deleteOfferedCourseClassSchedule = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result =
+      await OfferedCourseClassScheduleService.deleteOfferedCourseClassSchedule(
+        id,
+      );
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'OfferedCourseClassSchedule deleted successfully',
+      data: result,
+    });
+  },
+);
+
 export const OfferedCourseClassScheduleController = {
   createOfferedCourseClassSchedule,
   getAllOfferedCourseClassSchedule,
   getSingleOfferedCourseClassSchedule,
   updateOfferedCourseClassSchedule,
+  deleteOfferedCourseClassSchedule,
 };
