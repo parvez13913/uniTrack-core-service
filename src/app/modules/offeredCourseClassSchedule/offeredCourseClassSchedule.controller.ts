@@ -48,7 +48,25 @@ const getAllOfferedCourseClassSchedule = catchAsync(
   },
 );
 
+const getSingleOfferedCourseClassSchedule = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result =
+      await OfferedCourseClassScheduleService.getSingleOfferedCourseClassSchedule(
+        id,
+      );
+
+    sendResponse<OfferedCourseClassSchedule>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Offered course Schedule Fetched Successfully!',
+      data: result,
+    });
+  },
+);
+
 export const OfferedCourseClassScheduleController = {
   createOfferedCourseClassSchedule,
   getAllOfferedCourseClassSchedule,
+  getSingleOfferedCourseClassSchedule,
 };

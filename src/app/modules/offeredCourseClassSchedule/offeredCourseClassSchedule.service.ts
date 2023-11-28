@@ -103,7 +103,24 @@ const getAllOfferedCourseClassSchedule = async (
   };
 };
 
+const getSingleOfferedCourseClassSchedule = async (
+  id: string,
+): Promise<OfferedCourseClassSchedule | null> => {
+  const result = await prisma.offeredCourseClassSchedule.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      offeredCourseSection: true,
+      faculty: true,
+      room: true,
+    },
+  });
+  return result;
+};
+
 export const OfferedCourseClassScheduleService = {
   createOfferedCourseClassSchedule,
   getAllOfferedCourseClassSchedule,
+  getSingleOfferedCourseClassSchedule,
 };
