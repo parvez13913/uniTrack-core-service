@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.post(
   '/create-academicDepartment',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(
     AcademicDepartmentValidation.createAcademicDepartmentZodSchema,
   ),
@@ -17,14 +18,18 @@ router.post(
 
 router.patch(
   '/:id',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(
     AcademicDepartmentValidation.updateAcademicDepartmentZodSchema,
   ),
   AcademicDepartmentController.updateAcademicDepartment,
 );
 
-router.delete('/:id', AcademicDepartmentController.deleteAcademicDepartment);
+router.delete(
+  '/:id',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  AcademicDepartmentController.deleteAcademicDepartment,
+);
 
 router.get('/:id', AcademicDepartmentController.getSingleAcademicDepartment);
 
