@@ -1,16 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AcademicSemester, Prisma } from '@prisma/client';
+import httpStatus from 'http-status';
+import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { AcademicSemesterSearchableFields } from './academicSemester.constant';
+import { RedisClient } from '../../../shared/redis';
+import {
+  AcademicSemesterSearchableFields,
+  EVENT_ACADEMIC_SEMESTER_CREATED,
+  academicSemesterTitleCodeMapper,
+} from './academicSemester.constant';
 import { IAcademicSemesterFilters } from './academicSemester.interface';
 
 const createAcademicSemister = async (
   data: AcademicSemester,
 ): Promise<AcademicSemester> => {
+  if (academicSemesterTitleCodeMapper[data.title] !== data.code) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid Semester Code');
+  }
   const result = await prisma.academicSemester.create({ data });
+
+  if (result) {
+    await RedisClient.publish(
+      EVENT_ACADEMIC_SEMESTER_CREATED,
+      JSON.stringify(result),
+    );
+  }
+
   return result;
 };
 
