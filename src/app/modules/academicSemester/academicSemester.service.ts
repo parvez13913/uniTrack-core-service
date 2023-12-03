@@ -10,6 +10,7 @@ import { RedisClient } from '../../../shared/redis';
 import {
   AcademicSemesterSearchableFields,
   EVENT_ACADEMIC_SEMESTER_CREATED,
+  EVENT_ACADEMIC_SEMESTER_UPDATED,
   academicSemesterTitleCodeMapper,
 } from './academicSemester.constant';
 import { IAcademicSemesterFilters } from './academicSemester.interface';
@@ -105,6 +106,13 @@ const updateAcademicSemester = async (
     },
     data: payload,
   });
+
+  if (result) {
+    await RedisClient.publish(
+      EVENT_ACADEMIC_SEMESTER_UPDATED,
+      JSON.stringify(result),
+    );
+  }
 
   return result;
 };
