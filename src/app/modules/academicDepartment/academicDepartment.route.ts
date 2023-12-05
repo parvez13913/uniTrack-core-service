@@ -8,10 +8,11 @@ import { AcademicDepartmentValidation } from './academicDepartment.validation';
 const router = express.Router();
 
 router.get('/', AcademicDepartmentController.getAllDepartMents);
+
 router.get('/:id', AcademicDepartmentController.getSingleAcademicDepartment);
 
 router.post(
-  '/create-academicDepartment',
+  '/',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(
     AcademicDepartmentValidation.createAcademicDepartmentZodSchema,
