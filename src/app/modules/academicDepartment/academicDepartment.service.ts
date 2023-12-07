@@ -22,12 +22,14 @@ const createAcademicDepartment = async (
       academicFaculty: true,
     },
   });
+
   if (result) {
     await RedisClient.publish(
       EVENT_ACADEMIC_DEPARTMENT_CREATED,
       JSON.stringify(result),
     );
   }
+
   return result;
 };
 
