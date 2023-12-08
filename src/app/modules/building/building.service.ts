@@ -14,7 +14,7 @@ const createBuilding = async (data: Building): Promise<Building> => {
   return result;
 };
 
-const getAllBuilding = async (
+const getAllBuildings = async (
   filters: IFacultyFilters,
   options: IPaginationOptions,
 ): Promise<IGenericResponse<Building[]>> => {
@@ -97,7 +97,7 @@ const deleteBuilding = async (id: string): Promise<Building> => {
 
 export const BuildingService = {
   createBuilding,
-  getAllBuilding,
+  getAllBuildings,
   getSingleBuilding,
   updateBuilding,
   deleteBuilding,

@@ -7,11 +7,11 @@ import { BuildingValidation } from './building.validation';
 
 const router = express.Router();
 
-router.get('/', BuildingController.getAllBuilding);
+router.get('/', BuildingController.getAllBuildings);
 router.get('/:id', BuildingController.getSingleBuilding);
 
 router.post(
-  '/create-building',
+  '/',
   validateRequest(BuildingValidation.createBuildingZodSchema),
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   BuildingController.createBuilding,
