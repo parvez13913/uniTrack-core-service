@@ -11,16 +11,16 @@ router.get('/', RoomController.getAllRooms);
 router.get('/:id', RoomController.getSingleRoom);
 
 router.post(
-  '/create-room',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  '/',
   validateRequest(RoomValidation.createRoomZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   RoomController.createRoom,
 );
 
 router.patch(
   '/:id',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(RoomValidation.updateRoomZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   RoomController.updateRoom,
 );
 
