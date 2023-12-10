@@ -12,7 +12,7 @@ router.get('/', CourseController.getAllCourses);
 router.get('/:id', CourseController.getSingleCourse);
 
 router.post(
-  '/create-course',
+  '/',
   validateRequest(CourseValidation.createCourseZodSchema),
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   CourseController.createCourse,
