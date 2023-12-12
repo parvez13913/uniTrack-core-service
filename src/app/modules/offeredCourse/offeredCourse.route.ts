@@ -11,16 +11,16 @@ router.get('/', OfferedCourseController.getAllOfferedCourses);
 router.get('/:id', OfferedCourseController.getSingleOfferedCourse);
 
 router.post(
-  '/create-offered-course',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  '/',
   validateRequest(OfferedCourseValidation.createOfferedCourseZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   OfferedCourseController.createOfferedCourses,
 );
 
 router.patch(
   '/:id',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(OfferedCourseValidation.updateOfferedCourseZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   OfferedCourseController.updateOfferedCourse,
 );
 
