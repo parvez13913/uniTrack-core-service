@@ -33,7 +33,7 @@ router.post(
 );
 
 router.post(
-  '/create-semesterRegistration',
+  '/',
   validateRequest(
     SemesterRegistrationValidation.createSemesterRegistrationZodSchema,
   ),
