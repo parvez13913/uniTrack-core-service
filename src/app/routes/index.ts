@@ -57,11 +57,11 @@ const moduleRoutes = [
     route: OfferedCourseRouter,
   },
   {
-    path: '/offered-courses-sections',
+    path: '/offeredCoursesSections',
     route: OfferedCourseSectionRouter,
   },
   {
-    path: '/offered-courses-class-schedules',
+    path: '/offeredCoursesClassSchedules',
     route: OfferedCourseClassScheduleRouter,
   },
   {
