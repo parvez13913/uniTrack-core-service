@@ -11,7 +11,6 @@ const timeStringSchema = z.string().refine(
   },
 );
 
-/// I will discuss in next module
 const createOfferedCourseClassSchedule = z
   .object({
     body: z.object({

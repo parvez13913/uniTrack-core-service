@@ -58,7 +58,8 @@ const getSingleStudentEnrolledCourse = catchAsync(
 const updateStudentEnrolledCourse = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { updatedData } = req.body;
+    const updatedData = req.body;
+
     const result =
       await StudentEnrolledCourseService.updateStudentEnrolledCourse(
         id,

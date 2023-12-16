@@ -9,6 +9,7 @@ import { OfferedCourseSectionRouter } from '../modules/offeredCourseSection/offe
 import { RoomRouter } from '../modules/room/room.route';
 import { SemesterRegistrationRouter } from '../modules/semesterRegistration/semesterRegistration.route';
 import { StudentRouter } from '../modules/student/student.route';
+import { StudentEnrolledCourseRouter } from '../modules/studentEnrolledCourse/studentEnrolledCourse.route';
 import { StudentEnrolledCourseMarkRoute } from '../modules/studentEnrolledCourseMark/studentEnrolledCourseMark.route';
 import { AcademicSemesterRouter } from './../modules/academicSemester/academicSemester.route';
 import { OfferedCourseClassScheduleRouter } from './../modules/offeredCourseClassSchedule/offeredCourseClassSchedule.route';
@@ -65,7 +66,11 @@ const moduleRoutes = [
     route: OfferedCourseClassScheduleRouter,
   },
   {
-    path: '/student-enrolled-course-marks',
+    path: '/studentEnrolledCourses',
+    route: StudentEnrolledCourseRouter,
+  },
+  {
+    path: '/studentEnrolledCourseMarks',
     route: StudentEnrolledCourseMarkRoute,
   },
 ];

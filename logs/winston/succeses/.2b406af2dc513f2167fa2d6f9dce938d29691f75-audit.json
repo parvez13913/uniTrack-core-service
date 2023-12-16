@@ -6,31 +6,6 @@
     "auditLog": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\.2b406af2dc513f2167fa2d6f9dce938d29691f75-audit.json",
     "files": [
         {
-            "date": 1701434688168,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-01-12-18-success.log",
-            "hash": "65871f5a1b2911d2844c5a379f4bee72a1255f3a56990912fc14881054644883"
-        },
-        {
-            "date": 1701436861218,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-01-12-19-success.log",
-            "hash": "1a86f77c3fbb671b69faa1d26bd1e6216860736a856496cea4c79dcd7ca8d094"
-        },
-        {
-            "date": 1701439944240,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-01-12-20-success.log",
-            "hash": "5545560f197da96d4494161669c76bfe2573b2c6bddc0338fb1928b69d66c6c3"
-        },
-        {
-            "date": 1701446917849,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-01-12-22-success.log",
-            "hash": "eea8e0065df71e61080791b3884a6b8f679aec1391a79578faae2d804427a21d"
-        },
-        {
-            "date": 1701450637065,
-            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-01-12-23-success.log",
-            "hash": "9b6e4bd6becdee5c2e29c96c2e522cf65634b52ec33d0d70ad84ededfb9d4f15"
-        },
-        {
             "date": 1701609865368,
             "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-03-12-19-success.log",
             "hash": "ee65f46681afc36ffec51bb26d26a7d56f2590e1031c93b83a99b8ebdcae568d"
@@ -134,6 +109,16 @@
             "date": 1702638462151,
             "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-15-12-17-success.log",
             "hash": "21a518113328347640ac9c60e16dd94368f12aa22d5d067fa44a8a6800d18172"
+        },
+        {
+            "date": 1702726984868,
+            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-16-12-17-success.log",
+            "hash": "e361f655ba4883242424537421d91628982fa8bf5a7d9e8044b359169fc53dd1"
+        },
+        {
+            "date": 1702728099036,
+            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\succeses\\unt-2023-16-12-18-success.log",
+            "hash": "e17afc2af01d14a861832061f0532a6ba2be08fd1877ca43bb43f4c345b8ba89"
         }
     ],
     "hashType": "sha256"

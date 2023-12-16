@@ -38,4 +38,4 @@ router.delete(
   StudentEnrolledCourseController.deleteStudentEnrolledCourse,
 );
 
-export const StudentEnrolledCourseRoute = router;
+export const StudentEnrolledCourseRouter = router;
