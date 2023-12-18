@@ -20,18 +20,18 @@ router.get(
 );
 
 router.patch(
-  '/update-marks',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY),
+  '/updateMarks',
   validateRequest(StudentEnrolledCourseMarkValidation.updateStudentMarks),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY),
   StudentEnrolledCourseMarkController.updateStudentMarks,
 );
 
 router.patch(
   '/update-final-marks',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY),
   validateRequest(
     StudentEnrolledCourseMarkValidation.updateStudentCourseFinalMarks,
   ),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY),
   StudentEnrolledCourseMarkController.updateFinalMarks,
 );
 

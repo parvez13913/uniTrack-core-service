@@ -133,11 +133,11 @@ const withdrewFromCourse = async (
   });
 
   if (!student) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Student Not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Student not found');
   }
 
   if (!semesterRegistration) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Semester Registration Not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Semester Registration not found');
   }
 
   if (!offeredCourse) {
