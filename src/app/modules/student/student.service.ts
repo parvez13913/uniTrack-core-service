@@ -261,6 +261,24 @@ const myAcademicInfo = async (authUserId: string): Promise<any> => {
   };
 };
 
+const createStudentFromEvent = async (event: any) => {
+  const studentData: Partial<Student> = {
+    studentId: event.id,
+    firstName: event.name.firstName,
+    middleName: event.name.middleName,
+    lastName: event.name.lastName,
+    email: event.email,
+    contactNo: event.contactNo,
+    gender: event.gender,
+    bloodGroup: event.bloodGroup,
+    academicSemesterId: event.academicSemester.syncId,
+    academicDepartmentId: event.academicDepartment.syncId,
+    academicFacultyId: event.academicFaculty.syncId,
+  };
+
+  await createStudent(studentData as Student);
+};
+
 export const StudentService = {
   createStudent,
   getAllStudents,
@@ -270,4 +288,5 @@ export const StudentService = {
   myCourses,
   getMyCourseSchedules,
   myAcademicInfo,
+  createStudentFromEvent,
 };

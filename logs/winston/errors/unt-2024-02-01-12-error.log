@@ -1,0 +1,25 @@
+Tue Jan 02 2024 12:38:29 [UniTrack] error: 
+Invalid `prisma.student.create()` invocation:
+
+{
+  data: {
+    studentId: "010200008",
+    firstName: "Abir",
+    lastName: "Hasan",
+    email: "abir1416@gmail.com",
+    contactNo: "0198983010",
+    gender: "male",
+    bloodGroup: "B+",
+    academicSemesterId: "6d49beee-e6f8-47f7-b962-a7cfe6afd476",
+    academicDepartmentId: "69b0e855-6253-4088-a1ed-0ce27087a825",
+    academicFacultyId: "b394fee2-fc61-47c4-9ed2-6897ee70a9f0",
++   middleName: String
+  },
+  include: {
+    academicFaculty: true,
+    academicDepartment: true,
+    academicSemester: true
+  }
+}
+
+Argument `middleName` is missing.
