@@ -1,0 +1,25 @@
+Wed Jan 03 2024 19:56:57 [UniTrack] error: 
+Invalid `prisma.faculty.create()` invocation:
+
+{
+  data: {
+    facultyId: "F-00003",
+    firstName: "Parvez",
+    lastName: "Rahman",
+    profileImage: "https://res.cloudinary.com/dbqkfq9bz/image/upload/v1704290215/awzo8qhcaxldmoxarykd.png",
+    email: "parvezz13913@gmail.com",
+    contactNo: "01977328607",
+    gender: "male",
+    bloodGroup: "B+",
+    designation: "Garagonj",
+    academicDepartmentId: "69b0e855-6253-4088-a1ed-0ce27087a825",
+    academicFacultyId: "b394fee2-fc61-47c4-9ed2-6897ee70a9f0",
++   middleName: String
+  },
+  include: {
+    academicFaculty: true,
+    academicDepartment: true
+  }
+}
+
+Argument `middleName` is missing.

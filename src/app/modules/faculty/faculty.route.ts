@@ -9,48 +9,48 @@ const router = express.Router();
 
 router.get('/', FacultController.getAllFaculties);
 router.get(
-  '/my-course',
+  '/myCourse',
   auth(ENUM_USER_ROLE.FACULTY),
   FacultController.myCourse,
 );
 router.get('/:id', FacultController.getSingleFaculty);
 router.get(
-  '/my-course-students',
+  '/myCourseStudents',
   auth(ENUM_USER_ROLE.FACULTY),
   FacultController.getMyCourseStudents,
 );
 
 router.post(
-  '/create-faculty',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  '/createFaculty',
   validateRequest(FacultyValidation.createFacultyZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   FacultController.createFaculty,
 );
 
 router.patch(
   '/:id',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   validateRequest(FacultyValidation.updateFacultyZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   FacultController.updateFaculty,
 );
 
 router.delete(
   '/:id',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   FacultController.deleteFaculty,
 );
 
 router.post(
-  '/:id/assign-courses',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  '/:id/assignCourses',
   validateRequest(FacultyValidation.assignOrRemoveCoursesZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   FacultController.assignCourses,
 );
 
 router.delete(
-  '/:id/remove-courses',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  '/:id/removeCourses',
   validateRequest(FacultyValidation.assignOrRemoveCoursesZodSchema),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   FacultController.removeCourses,
 );
 

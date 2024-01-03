@@ -7,6 +7,7 @@ import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
 import { facultyFilterableFields } from './faculty.constants';
 import {
+  IFacultyCreatedEvent,
   IFacultyFilters,
   IFacultyMyCourseStudentsRequest,
 } from './faculty.interface';
@@ -336,6 +337,27 @@ const getMyCourseStudents = async (
   };
 };
 
+const createFacultyFromEvent = async (
+  event: IFacultyCreatedEvent,
+): Promise<void> => {
+  const faculty: Partial<Faculty> = {
+    facultyId: event.id,
+    firstName: event.name.firstName,
+    lastName: event.name.lastName,
+    middleName: event.name.middleName,
+    profileImage: event.profileImage,
+    email: event.email,
+    contactNo: event.contactNo,
+    gender: event.gender,
+    bloodGroup: event.bloodGroup,
+    designation: event.designation,
+    academicDepartmentId: event.academicDepartment.syncId,
+    academicFacultyId: event.academicFaculty.syncId,
+  };
+
+  await createFaculty(faculty as Faculty);
+};
+
 export const FacultyService = {
   createFaculty,
   getAllFaculties,
@@ -346,4 +368,5 @@ export const FacultyService = {
   removeCourses,
   myCourse,
   getMyCourseStudents,
+  createFacultyFromEvent,
 };

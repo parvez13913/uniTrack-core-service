@@ -31,6 +31,9 @@ const createFacultyZodSchema = z.object({
     bloodGroup: z.string({
       required_error: 'Blood Group is Required',
     }),
+    designation: z.string({
+      required_error: 'Designation is required',
+    }),
     academicDepartmentId: z.string({
       required_error: 'Academic Department Id is Required',
     }),

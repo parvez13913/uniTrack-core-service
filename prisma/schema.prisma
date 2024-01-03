@@ -85,13 +85,14 @@ model Faculty {
   id                          String                       @id @default(uuid())
   facultyId                   String
   firstName                   String
-  middleName                  String
+  middleName                  String?
   lastName                    String
   profileImage                String
   email                       String
   contactNo                   String
   gender                      String
   bloodGroup                  String
+  designation                 String
   createdAt                   DateTime                     @default(now())
   updatedAt                   DateTime                     @updatedAt
   academicDepartment          AcademicDepartment           @relation(fields: [academicDepartmentId], references: [id])
