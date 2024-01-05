@@ -358,6 +358,40 @@ const createFacultyFromEvent = async (
   await createFaculty(faculty as Faculty);
 };
 
+const updateFacultyFromEvent = async (event: any): Promise<void> => {
+  const isExist = await prisma.faculty.findFirst({
+    where: {
+      facultyId: event.id,
+    },
+  });
+
+  if (!isExist) {
+    createFacultyFromEvent(event);
+  } else {
+    const facultyData: Partial<Faculty> = {
+      facultyId: event.id,
+      firstName: event.name.firstName,
+      lastName: event.name.lastName,
+      middleName: event.name.middleName,
+      profileImage: event.profileImage,
+      email: event.email,
+      contactNo: event.contactNo,
+      gender: event.gender,
+      bloodGroup: event.bloodGroup,
+      designation: event.designation,
+      academicDepartmentId: event.academicDepartment.syncId,
+      academicFacultyId: event.academicFaculty.syncId,
+    };
+
+    await prisma.faculty.updateMany({
+      where: {
+        facultyId: event.id,
+      },
+      data: facultyData,
+    });
+  }
+};
+
 export const FacultyService = {
   createFaculty,
   getAllFaculties,
@@ -369,4 +403,5 @@ export const FacultyService = {
   myCourse,
   getMyCourseStudents,
   createFacultyFromEvent,
+  updateFacultyFromEvent,
 };
