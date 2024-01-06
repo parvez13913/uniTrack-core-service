@@ -85,10 +85,10 @@ const assignCourses = async (req: Request, res: Response) => {
   });
 };
 
-const myCourse = catchAsync(async (req: Request, res: Response) => {
+const myCourses = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
   const filter = pick(req.query, ['academicSemesterId', 'courseId']);
-  const result = await FacultyService.myCourse(user, filter);
+  const result = await FacultyService.myCourses(user, filter);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -143,6 +143,6 @@ export const FacultController = {
   deleteFaculty,
   assignCourses,
   removeCourses,
-  myCourse,
+  myCourses,
   getMyCourseStudents,
 };

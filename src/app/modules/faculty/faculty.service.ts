@@ -148,7 +148,7 @@ const assignCourses = async (
   return result;
 };
 
-const myCourse = async (
+const myCourses = async (
   authUser: { userId: string; role: string },
   filter: {
     academicSemesterId?: string | null | undefined;
@@ -169,7 +169,7 @@ const myCourse = async (
     where: {
       offeredCourseClassSchedules: {
         some: {
-          faculty: {
+          faculties: {
             facultyId: authUser.userId,
           },
         },
@@ -400,7 +400,7 @@ export const FacultyService = {
   deleteFaculty,
   assignCourses,
   removeCourses,
-  myCourse,
+  myCourses,
   getMyCourseStudents,
   createFacultyFromEvent,
   updateFacultyFromEvent,
