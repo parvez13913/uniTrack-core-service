@@ -12,7 +12,7 @@ router.get('/', StudentController.getAllStudents);
 router.get(
   '/myCourses',
   auth(ENUM_USER_ROLE.STUDENT),
-  StudentController.myCourses,
+  StudentController.getMyCourses,
 );
 
 router.get(

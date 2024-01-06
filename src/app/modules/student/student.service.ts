@@ -128,7 +128,7 @@ const deleteStudent = async (id: string): Promise<Student> => {
   return result;
 };
 
-const myCourses = async (
+const getMyCourses = async (
   authUserId: string,
   filter: {
     courseId?: string | undefined;
@@ -175,7 +175,7 @@ const getMyCourseSchedules = async (
     filter.academicSemesterId = currentSemester?.id;
   }
 
-  const studentEnrolledCourses = await myCourses(authUserId, filter);
+  const studentEnrolledCourses = await getMyCourses(authUserId, filter);
 
   const studentEnrolledCourseIds = studentEnrolledCourses.map(
     item => item.courseId,
@@ -319,7 +319,7 @@ export const StudentService = {
   getSingleStudent,
   updateStudent,
   deleteStudent,
-  myCourses,
+  getMyCourses,
   getMyCourseSchedules,
   myAcademicInfo,
   createStudentFromEvent,

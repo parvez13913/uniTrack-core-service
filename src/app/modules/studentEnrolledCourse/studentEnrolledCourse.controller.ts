@@ -16,7 +16,7 @@ const createStudentEnrolledCourse = catchAsync(
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'StudentEnrolledCourse created successfully',
+      message: 'Student enrolled course created successfully',
       data: result,
     });
   },
