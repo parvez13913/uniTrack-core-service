@@ -215,7 +215,7 @@ const getMyCourseSchedules = async (
                   building: true,
                 },
               },
-              faculty: true,
+              faculties: true,
             },
           },
         },
@@ -261,7 +261,7 @@ const myAcademicInfo = async (authUserId: string): Promise<any> => {
   };
 };
 
-const createStudentFromEvent = async (event: any) => {
+const createStudentFromEvent = async (event: any): Promise<void> => {
   const studentData: Partial<Student> = {
     studentId: event.id,
     firstName: event.name.firstName,
@@ -279,6 +279,40 @@ const createStudentFromEvent = async (event: any) => {
   await createStudent(studentData as Student);
 };
 
+const updateStudentFromEvent = async (event: any): Promise<void> => {
+  const isExist = await prisma.student.findFirst({
+    where: {
+      studentId: event.id,
+    },
+  });
+
+  if (!isExist) {
+    await createStudentFromEvent(event);
+    return;
+  } else {
+    const studentData: Partial<Student> = {
+      studentId: event.id,
+      firstName: event.name.firstName,
+      middleName: event.name.middleName,
+      lastName: event.name.lastName,
+      email: event.email,
+      contactNo: event.contactNo,
+      gender: event.gender,
+      bloodGroup: event.bloodGroup,
+      academicSemesterId: event.academicSemester.syncId,
+      academicDepartmentId: event.academicDepartment.syncId,
+      academicFacultyId: event.academicFaculty.syncId,
+    };
+
+    await prisma.student.updateMany({
+      where: {
+        studentId: event.id,
+      },
+      data: studentData as Student,
+    });
+  }
+};
+
 export const StudentService = {
   createStudent,
   getAllStudents,
@@ -289,4 +323,5 @@ export const StudentService = {
   getMyCourseSchedules,
   myAcademicInfo,
   createStudentFromEvent,
+  updateStudentFromEvent,
 };

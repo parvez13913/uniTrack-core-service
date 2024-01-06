@@ -367,6 +367,7 @@ const updateFacultyFromEvent = async (event: any): Promise<void> => {
 
   if (!isExist) {
     createFacultyFromEvent(event);
+    return;
   } else {
     const facultyData: Partial<Faculty> = {
       facultyId: event.id,

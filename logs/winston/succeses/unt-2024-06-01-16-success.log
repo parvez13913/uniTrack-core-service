@@ -10,3 +10,21 @@
   label: 'UniTrack',
   timestamp: '2024-01-06T10:25:17.304Z'
 }
+{
+  message: 'Server running on port 3002',
+  level: 'info',
+  label: 'UniTrack',
+  timestamp: '2024-01-06T10:45:23.314Z'
+}
+{
+  message: 'Server running on port 3002',
+  level: 'info',
+  label: 'UniTrack',
+  timestamp: '2024-01-06T10:48:40.572Z'
+}
+{
+  message: 'Server running on port 3002',
+  level: 'info',
+  label: 'UniTrack',
+  timestamp: '2024-01-06T10:59:29.918Z'
+}
