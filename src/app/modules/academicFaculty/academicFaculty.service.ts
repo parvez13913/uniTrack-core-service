@@ -70,7 +70,9 @@ const getAllAcademicFaculties = async (
         : { createdAt: 'desc' },
   });
 
-  const total = await prisma.academicFaculty.count();
+  const total = await prisma.academicFaculty.count({
+    where: whereConditions,
+  });
 
   return {
     meta: {

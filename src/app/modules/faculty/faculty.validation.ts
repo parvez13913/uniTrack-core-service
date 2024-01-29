@@ -8,9 +8,7 @@ const createFacultyZodSchema = z.object({
     firstName: z.string({
       required_error: 'First Name is Required',
     }),
-    middleName: z.string({
-      required_error: 'Middle Name is Required',
-    }),
+    middleName: z.string().optional(),
     lastName: z.string({
       required_error: 'Last Name is Required',
     }),
