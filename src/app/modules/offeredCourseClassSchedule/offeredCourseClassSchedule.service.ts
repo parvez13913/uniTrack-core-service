@@ -23,7 +23,7 @@ const createOfferedCourseClassSchedule = async (
       semesterRegistration: true,
       offeredCourseSection: true,
       room: true,
-      faculty: true,
+      faculties: true,
     },
   });
 
@@ -82,7 +82,7 @@ const getAllOfferedCourseClassSchedule = async (
         ? { [options.sortBy]: options.sortOrder }
         : { createdAt: 'desc' },
     include: {
-      faculty: true,
+      faculties: true,
       room: true,
       semesterRegistration: true,
       offeredCourseSection: true,
@@ -112,7 +112,7 @@ const getSingleOfferedCourseClassSchedule = async (
     },
     include: {
       offeredCourseSection: true,
-      faculty: true,
+      faculties: true,
       room: true,
     },
   });
@@ -130,7 +130,7 @@ const updateOfferedCourseClassSchedule = async (
     data: payload,
     include: {
       offeredCourseSection: true,
-      faculty: true,
+      faculties: true,
       room: true,
     },
   });
@@ -146,7 +146,7 @@ const deleteOfferedCourseClassSchedule = async (
     },
     include: {
       offeredCourseSection: true,
-      faculty: true,
+      faculties: true,
       room: true,
     },
   });

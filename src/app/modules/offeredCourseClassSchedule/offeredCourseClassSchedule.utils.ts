@@ -37,7 +37,7 @@ const checkFacultyAvailable = async (data: OfferedCourseClassSchedule) => {
     await prisma.offeredCourseClassSchedule.findMany({
       where: {
         dayOfWeek: data.dayOfWeek,
-        faculty: {
+        faculties: {
           id: data.facultyId,
         },
       },

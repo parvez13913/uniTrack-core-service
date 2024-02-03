@@ -27,14 +27,12 @@ const createCourse = async (data: ICourseCreateData): Promise<any> => {
       await asyncForEach(
         prerequisiteCourses,
         async (prerequisiteCourse: IPrerequisiteCourseRequest) => {
-          const createPrerequisite =
-            await transactionClient.courseToPrereqisite.create({
-              data: {
-                courseId: result.id,
-                prerequisiteId: prerequisiteCourse.courseId,
-              },
-            });
-          console.log(createPrerequisite);
+          await transactionClient.courseToPrereqisite.create({
+            data: {
+              courseId: result.id,
+              prerequisiteId: prerequisiteCourse.courseId,
+            },
+          });
         },
       );
     }

@@ -99,7 +99,7 @@ const createOfferedCourseSection = async (
               building: true,
             },
           },
-          faculty: true,
+          faculties: true,
         },
       },
     },
