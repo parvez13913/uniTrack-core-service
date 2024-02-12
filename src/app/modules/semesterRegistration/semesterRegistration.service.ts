@@ -560,7 +560,7 @@ const getMySemesterRegistrationCourses = async (authUserId: string) => {
 
   const studentCompletedCourse = await prisma.studentEnrolledCourse.findMany({
     where: {
-      status: StudentEnrolledCourseStatus.COMPLETED,
+      status: StudentEnrolledCourseStatus?.COMPLETED,
       student: {
         id: student?.id,
       },
@@ -589,7 +589,7 @@ const getMySemesterRegistrationCourses = async (authUserId: string) => {
   const offeredCourse = await prisma.offeredCourse.findMany({
     where: {
       semesterRegistration: {
-        id: semesterRegistration.id,
+        id: semesterRegistration?.id,
       },
       academicDepartment: {
         id: student?.academicDepartmentId,
