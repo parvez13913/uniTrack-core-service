@@ -27,6 +27,15 @@ router.get(
 );
 
 router.post(
+  '/enrollIntoCourse',
+  validateRequest(
+    SemesterRegistrationValidation.inrollOrWithdrawCourseZodSchema,
+  ),
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.enrollIntoCourse,
+);
+
+router.post(
   '/startRegistration',
   auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.startMySemesterRegistration,
@@ -54,15 +63,6 @@ router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   SemesterRegistrationController.deleteSemesterRegistration,
-);
-
-router.post(
-  '/enrollIntoCourse',
-  validateRequest(
-    SemesterRegistrationValidation.inrollOrWithdrawCourseZodSchema,
-  ),
-  auth(ENUM_USER_ROLE.STUDENT),
-  SemesterRegistrationController.enrollIntoCourse,
 );
 
 router.post(

@@ -253,15 +253,15 @@ model StudentSemesterRegistration {
 
 model StudentSemesterRegistrationCourse {
   semesterRegistrationId String
+  semesterRegistration   SemesterRegistration @relation(fields: [semesterRegistrationId], references: [id])
   studentId              String
+  student                Student              @relation(fields: [studentId], references: [id])
   offeredCourseId        String
+  offeredCourse          OfferedCourse        @relation(fields: [offeredCourseId], references: [id])
   offeredCourseSectionId String
+  offeredCourseSection   OfferedCourseSection @relation(fields: [offeredCourseSectionId], references: [id])
   createdAt              DateTime             @default(now())
   updatedAt              DateTime             @updatedAt
-  offeredCourse          OfferedCourse        @relation(fields: [offeredCourseId], references: [id])
-  offeredCourseSection   OfferedCourseSection @relation(fields: [offeredCourseSectionId], references: [id])
-  semesterRegistration   SemesterRegistration @relation(fields: [semesterRegistrationId], references: [id])
-  student                Student              @relation(fields: [studentId], references: [id])
 
   @@id([semesterRegistrationId, studentId, offeredCourseId])
   @@map("student_semester_registration_courses")

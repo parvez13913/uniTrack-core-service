@@ -24,7 +24,7 @@ const enrollIntoCourse = async (
 
   const offeredCourse = await prisma.offeredCourse.findFirst({
     where: {
-      id: payload.offeredCourseId,
+      id: payload?.offeredCourseId,
     },
     include: {
       course: true,
@@ -33,7 +33,7 @@ const enrollIntoCourse = async (
 
   const offeredCourseSection = await prisma.offeredCourseSection.findFirst({
     where: {
-      id: payload.offeredCourseSectionId,
+      id: payload?.offeredCourseSectionId,
     },
   });
 
@@ -54,10 +54,10 @@ const enrollIntoCourse = async (
   }
 
   if (
-    offeredCourseSection.maxCapacity &&
-    offeredCourseSection.currentlyEnrolledStudent &&
-    offeredCourseSection.currentlyEnrolledStudent >=
-      offeredCourseSection.maxCapacity
+    offeredCourseSection?.maxCapacity &&
+    offeredCourseSection?.currentlyEnrolledStudent &&
+    offeredCourseSection?.currentlyEnrolledStudent >=
+      offeredCourseSection?.maxCapacity
   ) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Student capacity is full');
   }
