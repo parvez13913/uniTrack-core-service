@@ -62,8 +62,8 @@ const enrollIntoCourse = async (
     throw new ApiError(httpStatus.BAD_REQUEST, 'Student capacity is full');
   }
 
-  await prisma.$transaction(async transactionClient => {
-    await transactionClient.studentSemesterRegistrationCourse.create({
+  await prisma.$transaction(async transClient => {
+    await transClient.studentSemesterRegistrationCourse.create({
       data: {
         studentId: student?.id,
         semesterRegistrationId: semesterRegistration?.id,
@@ -72,7 +72,7 @@ const enrollIntoCourse = async (
       },
     });
 
-    await transactionClient.offeredCourseSection.update({
+    await transClient.offeredCourseSection.update({
       where: {
         id: payload?.offeredCourseSectionId,
       },
@@ -83,7 +83,7 @@ const enrollIntoCourse = async (
       },
     });
 
-    await transactionClient.studentSemesterRegistration.updateMany({
+    await transClient.studentSemesterRegistration.updateMany({
       where: {
         student: {
           id: student?.id,
