@@ -9,9 +9,8 @@ import { StudentEnrolledCourseService } from './studentEnrolledCourse.service';
 
 const createStudentEnrolledCourse = catchAsync(
   async (req: Request, res: Response) => {
-    const { ...data } = req.body;
     const result =
-      await StudentEnrolledCourseService.createStudentEnrolledCourse(data);
+      await StudentEnrolledCourseService.createStudentEnrolledCourse(req.body);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,

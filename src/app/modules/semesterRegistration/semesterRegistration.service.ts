@@ -325,8 +325,8 @@ const confirmMyRegistration = async (
 
   if (
     studentSemesterRegistration.totalCreditsTaken &&
+    semesterRegistration?.minCredit &&
     semesterRegistration?.maxCredit &&
-    semesterRegistration.minCredit &&
     (studentSemesterRegistration.totalCreditsTaken <
       semesterRegistration?.minCredit ||
       studentSemesterRegistration.totalCreditsTaken >
@@ -437,7 +437,7 @@ const startNewSemester = async (
     });
 
     const studentSemesterRegistrations =
-      await prismaTransactionClient.studentSemesterRegistration.findMany({
+      await prisma.studentSemesterRegistration.findMany({
         where: {
           semesterRegistration: {
             id,

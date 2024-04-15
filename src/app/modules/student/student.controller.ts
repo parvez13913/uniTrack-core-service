@@ -74,8 +74,9 @@ const deleteStudent = catchAsync(async (req: Request, res: Response) => {
 
 const getMyCourses = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
+
   const filter = pick(req.query, ['courseId', 'academicSemesterId']);
-  const result = await StudentService.getMyCourses(user.userId, filter);
+  const result = await StudentService.getMyCourses(user?.userId, filter);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

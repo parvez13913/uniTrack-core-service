@@ -4,7 +4,11 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { studentFilterableFields } from './student.constants';
+import {
+  studentFilterableFields,
+  studentRelationalFields,
+  studentRelationalFieldsMapper,
+} from './student.constants';
 import { IStudentFilters } from './student.interface';
 import { StudentUtils } from './student.utils';
 
@@ -43,11 +47,21 @@ const getAllStudents = async (
 
   if (Object.keys(filtersData).length > 0) {
     andConditions.push({
-      AND: Object.keys(filtersData).map(key => ({
-        [key]: {
-          equals: (filtersData as any)[key],
-        },
-      })),
+      AND: Object.keys(filtersData).map(key => {
+        if (studentRelationalFields.includes(key)) {
+          return {
+            [studentRelationalFieldsMapper[key]]: {
+              id: (filtersData as any)[key],
+            },
+          };
+        } else {
+          return {
+            [key]: {
+              equals: (filtersData as any)[key],
+            },
+          };
+        }
+      }),
     });
   }
 
