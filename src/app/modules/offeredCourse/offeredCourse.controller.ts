@@ -9,8 +9,7 @@ import { offeredCourseFilterableFields } from './offeredCourse.constants';
 import { OfferedCourseService } from './offeredCourse.service';
 
 const createOfferedCourses = catchAsync(async (req: Request, res: Response) => {
-  const { ...data } = req.body;
-  const result = await OfferedCourseService.createOfferedCourses(data);
+  const result = await OfferedCourseService.createOfferedCourses(req.body);
 
   sendResponse<OfferedCourse[]>(res, {
     statusCode: httpStatus.OK,
