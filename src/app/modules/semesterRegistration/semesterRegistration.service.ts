@@ -6,8 +6,6 @@ import {
   StudentSemesterRegistration,
   StudentSemesterRegistrationCourse,
 } from '@prisma/client';
-import { asyncForEach } from './../../../shared/utils';
-import { StudentEnrolledCourseDefaultMarkService } from './../studentEnrolledCourseMark/studentEnrolledCourseMark.service';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Prisma, SemesterRegistrationStatus } from '@prisma/client';
 import httpStatus from 'http-status';
@@ -16,6 +14,8 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
+import { asyncForEach } from '../../../shared/utils';
+import { StudentEnrolledCourseDefaultMarkService } from '../studentEnrolledCourseMark/studentEnrolledCourseMark.service';
 import { StudentSemesterPaymentService } from '../studentSemesterPayment/studentSemesterPayment.service';
 import { studentSemesterRegistrationCourseService } from '../studentSemesterRegistrationCourse/studentSemesterRegistrationCourse.service';
 import { semesterRegistrationFilterableFields } from './semesterRegistration.constants';
@@ -417,8 +417,8 @@ const startNewSemester = async (
     throw new ApiError(httpStatus.BAD_REQUEST, 'Semester is already started');
   }
 
-  await prisma.$transaction(async prismaTransactionClient => {
-    await prismaTransactionClient.academicSemester.updateMany({
+  await prisma.$transaction(async tranClient => {
+    await tranClient.academicSemester.updateMany({
       where: {
         isCurrent: true,
       },
@@ -427,7 +427,7 @@ const startNewSemester = async (
       },
     });
 
-    await prismaTransactionClient.academicSemester.update({
+    await tranClient.academicSemester.update({
       where: {
         id: semesterRegistration?.academicSemesterId,
       },
@@ -452,7 +452,7 @@ const startNewSemester = async (
         if (studentSemReg?.totalCreditsTaken) {
           const totalPaymentAmoutnt = studentSemReg?.totalCreditsTaken * 5000;
           await StudentSemesterPaymentService.createSemesterPayment(
-            prismaTransactionClient,
+            tranClient,
             {
               studentId: studentSemReg?.studentId,
               academicSemesterId: semesterRegistration?.academicSemesterId,
@@ -462,26 +462,23 @@ const startNewSemester = async (
         }
 
         const studentSemesterRegistrationCourses =
-          await prismaTransactionClient.studentSemesterRegistrationCourse.findMany(
-            {
-              where: {
-                semesterRegistration: {
-                  id,
-                },
-                student: {
-                  id: studentSemReg.studentId,
-                },
+          await tranClient.studentSemesterRegistrationCourse.findMany({
+            where: {
+              semesterRegistration: {
+                id,
               },
-
-              include: {
-                offeredCourse: {
-                  include: {
-                    course: true,
-                  },
+              student: {
+                id: studentSemReg.studentId,
+              },
+            },
+            include: {
+              offeredCourse: {
+                include: {
+                  course: true,
                 },
               },
             },
-          );
+          });
 
         asyncForEach(
           studentSemesterRegistrationCourses,
@@ -493,11 +490,13 @@ const startNewSemester = async (
             },
           ) => {
             const isExistEnrolledData =
-              await prismaTransactionClient.studentEnrolledCourse.findFirst({
+              await tranClient.studentEnrolledCourse.findFirst({
                 where: {
-                  studentId: item?.studentId,
-                  courseId: item?.offeredCourse?.courseId,
-                  academicSemesterId: semesterRegistration?.academicSemesterId,
+                  student: { id: item?.studentId },
+                  course: { id: item?.offeredCourse?.courseId },
+                  academicSemester: {
+                    id: semesterRegistration?.academicSemesterId,
+                  },
                 },
               });
 
@@ -509,12 +508,12 @@ const startNewSemester = async (
               };
 
               const studentEnrolledCourseData =
-                await prismaTransactionClient.studentEnrolledCourse.create({
+                await tranClient.studentEnrolledCourse.create({
                   data: enrolledCourseData,
                 });
 
               await StudentEnrolledCourseDefaultMarkService.studentEnrolledCourseDefaultMark(
-                prismaTransactionClient,
+                tranClient,
                 {
                   studentId: item.studentId,
                   studentEnrolledCourseId: studentEnrolledCourseData.id,
