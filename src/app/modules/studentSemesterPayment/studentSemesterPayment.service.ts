@@ -23,7 +23,7 @@ const createSemesterPayment = async (
   payload: {
     studentId: string;
     academicSemesterId: string;
-    totalPaymentAmoutnt: number;
+    totalPaymentAmount: number;
   },
 ) => {
   const isExist = prismaClient.studentSemesterPayment.findFirst({
@@ -40,9 +40,9 @@ const createSemesterPayment = async (
     const dataToInsert = {
       studentId: payload.studentId,
       academicSemesterId: payload.academicSemesterId,
-      fullPaymentAmount: payload.totalPaymentAmoutnt,
-      partialPaymentAmount: payload.totalPaymentAmoutnt * 0.5,
-      totalDueAmount: payload.totalPaymentAmoutnt,
+      fullPaymentAmount: payload.totalPaymentAmount,
+      partialPaymentAmount: payload.totalPaymentAmount * 0.5,
+      totalDueAmount: payload.totalPaymentAmount,
       totalPaidAmount: 0,
     };
     await prismaClient.studentSemesterPayment.create({

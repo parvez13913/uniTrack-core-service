@@ -417,8 +417,8 @@ const startNewSemester = async (
     throw new ApiError(httpStatus.BAD_REQUEST, 'Semester is already started');
   }
 
-  await prisma.$transaction(async tranClient => {
-    await tranClient.academicSemester.updateMany({
+  await prisma.$transaction(async prismaTransactionClient => {
+    await prismaTransactionClient.academicSemester.updateMany({
       where: {
         isCurrent: true,
       },
@@ -427,9 +427,9 @@ const startNewSemester = async (
       },
     });
 
-    await tranClient.academicSemester.update({
+    await prismaTransactionClient.academicSemester.update({
       where: {
-        id: semesterRegistration?.academicSemesterId,
+        id: semesterRegistration.academicSemesterId,
       },
       data: {
         isCurrent: true,
@@ -446,41 +446,43 @@ const startNewSemester = async (
         },
       });
 
-    asyncForEach(
+    await asyncForEach(
       studentSemesterRegistrations,
       async (studentSemReg: StudentSemesterRegistration) => {
-        if (studentSemReg?.totalCreditsTaken) {
-          const totalPaymentAmoutnt = studentSemReg?.totalCreditsTaken * 5000;
+        if (studentSemReg.totalCreditsTaken) {
+          const totalSemesterPaymentAmount =
+            studentSemReg.totalCreditsTaken * 5000;
+
           await StudentSemesterPaymentService.createSemesterPayment(
-            tranClient,
+            prismaTransactionClient,
             {
-              studentId: studentSemReg?.studentId,
-              academicSemesterId: semesterRegistration?.academicSemesterId,
-              totalPaymentAmoutnt: totalPaymentAmoutnt,
+              studentId: studentSemReg.studentId,
+              academicSemesterId: semesterRegistration.academicSemesterId,
+              totalPaymentAmount: totalSemesterPaymentAmount,
             },
           );
         }
-
         const studentSemesterRegistrationCourses =
-          await tranClient.studentSemesterRegistrationCourse.findMany({
-            where: {
-              semesterRegistration: {
-                id,
+          await prismaTransactionClient.studentSemesterRegistrationCourse.findMany(
+            {
+              where: {
+                semesterRegistration: {
+                  id,
+                },
+                student: {
+                  id: studentSemReg.studentId,
+                },
               },
-              student: {
-                id: studentSemReg.studentId,
-              },
-            },
-            include: {
-              offeredCourse: {
-                include: {
-                  course: true,
+              include: {
+                offeredCourse: {
+                  include: {
+                    course: true,
+                  },
                 },
               },
             },
-          });
-
-        asyncForEach(
+          );
+        await asyncForEach(
           studentSemesterRegistrationCourses,
           async (
             item: StudentSemesterRegistrationCourse & {
@@ -490,30 +492,30 @@ const startNewSemester = async (
             },
           ) => {
             const isExistEnrolledData =
-              await tranClient.studentEnrolledCourse.findFirst({
+              await prismaTransactionClient.studentEnrolledCourse.findFirst({
                 where: {
-                  student: { id: item?.studentId },
-                  course: { id: item?.offeredCourse?.courseId },
+                  student: { id: item.studentId },
+                  course: { id: item.offeredCourse.courseId },
                   academicSemester: {
-                    id: semesterRegistration?.academicSemesterId,
+                    id: semesterRegistration.academicSemesterId,
                   },
                 },
               });
 
             if (!isExistEnrolledData) {
               const enrolledCourseData = {
-                studentId: item?.studentId,
-                courseId: item?.offeredCourse?.courseId,
-                academicSemesterId: semesterRegistration?.academicSemesterId,
+                studentId: item.studentId,
+                courseId: item.offeredCourse.courseId,
+                academicSemesterId: semesterRegistration.academicSemesterId,
               };
 
               const studentEnrolledCourseData =
-                await tranClient.studentEnrolledCourse.create({
+                await prismaTransactionClient.studentEnrolledCourse.create({
                   data: enrolledCourseData,
                 });
 
               await StudentEnrolledCourseDefaultMarkService.studentEnrolledCourseDefaultMark(
-                tranClient,
+                prismaTransactionClient,
                 {
                   studentId: item.studentId,
                   studentEnrolledCourseId: studentEnrolledCourseData.id,
