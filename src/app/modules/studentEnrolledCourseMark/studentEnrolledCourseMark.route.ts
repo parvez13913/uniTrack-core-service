@@ -14,7 +14,7 @@ router.get(
 );
 
 router.get(
-  '/my-marks',
+  '/myMarks',
   auth(ENUM_USER_ROLE.STUDENT),
   StudentEnrolledCourseMarkController.getMyCourseMarks,
 );
@@ -27,7 +27,7 @@ router.patch(
 );
 
 router.patch(
-  '/update-final-marks',
+  '/updateFinalMarks',
   validateRequest(
     StudentEnrolledCourseMarkValidation.updateStudentCourseFinalMarks,
   ),
