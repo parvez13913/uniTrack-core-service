@@ -14,13 +14,14 @@ router.get(
   auth(ENUM_USER_ROLE.FACULTY),
   FacultController.myCourses,
 );
-router.get('/:id', FacultController.getSingleFaculty);
 
 router.get(
   '/myCourseStudents',
   auth(ENUM_USER_ROLE.FACULTY),
   FacultController.getMyCourseStudents,
 );
+
+router.get('/:id', FacultController.getSingleFaculty);
 
 router.post(
   '/createFaculty',
