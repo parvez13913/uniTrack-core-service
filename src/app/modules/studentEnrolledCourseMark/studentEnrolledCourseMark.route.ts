@@ -21,17 +21,17 @@ router.get(
 
 router.patch(
   '/updateMarks',
-  validateRequest(StudentEnrolledCourseMarkValidation.updateStudentMarks),
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY),
+  validateRequest(StudentEnrolledCourseMarkValidation.updateStudentMarks),
   StudentEnrolledCourseMarkController.updateStudentMarks,
 );
 
 router.patch(
   '/updateFinalMarks',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY),
   validateRequest(
     StudentEnrolledCourseMarkValidation.updateStudentCourseFinalMarks,
   ),
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.FACULTY),
   StudentEnrolledCourseMarkController.updateFinalMarks,
 );
 

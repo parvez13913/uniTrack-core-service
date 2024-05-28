@@ -2,11 +2,11 @@
   message: 'Server running on port 3002',
   level: 'info',
   label: 'UniTrack',
-  timestamp: '2024-04-21T15:21:28.824Z'
+  timestamp: '2024-05-25T14:27:56.938Z'
 }
 {
   message: 'Server running on port 3002',
   level: 'info',
   label: 'UniTrack',
-  timestamp: '2024-04-21T15:51:08.939Z'
+  timestamp: '2024-05-25T14:53:57.207Z'
 }

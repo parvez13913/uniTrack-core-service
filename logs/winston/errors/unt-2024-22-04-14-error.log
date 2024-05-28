@@ -1,5 +1,0 @@
-Mon Apr 22 2024 14:51:20 [UniTrack] error: 
-Invalid `prisma.studentSemesterRegistrationCourse.findMany()` invocation:
-
-
-Transaction API error: Transaction already closed: Could not perform operation.
