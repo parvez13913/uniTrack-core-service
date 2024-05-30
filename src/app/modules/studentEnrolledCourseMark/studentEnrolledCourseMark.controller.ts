@@ -9,12 +9,8 @@ import { studentEnrolledCourseMarkFilterableFields } from './studentEnrolledCour
 import { StudentEnrolledCourseDefaultMarkService } from './studentEnrolledCourseMark.service';
 
 const updateStudentMarks = catchAsync(async (req: Request, res: Response) => {
-  const updateData = req.body;
-
   const result =
-    await StudentEnrolledCourseDefaultMarkService.updateStudentMarks(
-      updateData,
-    );
+    await StudentEnrolledCourseDefaultMarkService.updateStudentMarks(req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -25,10 +21,9 @@ const updateStudentMarks = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateFinalMarks = catchAsync(async (req: Request, res: Response) => {
-  const updateData = req.body;
-
-  const result =
-    await StudentEnrolledCourseDefaultMarkService.updateFinalMarks(updateData);
+  const result = await StudentEnrolledCourseDefaultMarkService.updateFinalMarks(
+    req.body,
+  );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

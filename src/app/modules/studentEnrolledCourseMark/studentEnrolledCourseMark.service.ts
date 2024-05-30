@@ -72,7 +72,7 @@ const studentEnrolledCourseDefaultMark = async (
   const isExistFinalData =
     await prismaClient.studentEnrolledCourseMark.findFirst({
       where: {
-        examType: ExamType.MIDTERM,
+        examType: ExamType.FINAL,
         student: {
           id: payload.studentId,
         },
@@ -187,7 +187,7 @@ const updateStudentMarks = async (payload: any) => {
     },
     data: {
       marks,
-      grade: (await result).grade,
+      grade: (await result)?.grade,
     },
   });
 
