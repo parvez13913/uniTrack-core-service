@@ -84,9 +84,9 @@ const getAllFaculties = async (
 };
 
 const getSingleFaculty = async (id: string): Promise<Faculty | null> => {
-  const result = await prisma.faculty.findUnique({
+  const result = await prisma.faculty.findFirst({
     where: {
-      id,
+      facultyId: id,
     },
   });
 
