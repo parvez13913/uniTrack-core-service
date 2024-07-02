@@ -11,4 +11,10 @@ router.get(
   StudentSemesterPaymentController.getAllSemesterPayment,
 );
 
+router.post(
+  '/initiatePayment',
+  auth(ENUM_USER_ROLE.STUDENT),
+  StudentSemesterPaymentController.initiatePayment,
+);
+
 export const studentSemesterPaymentRoute = router;
