@@ -204,6 +204,48 @@ const initiatePayment = async (payload: any, user: any) => {
       paymentDetails: isPendingPaymentExist,
     };
   }
+
+  let payableAmount = 0;
+
+  if (
+    payload?.paymentType === 'PARTIAL' &&
+    studentSemesterPayment?.totalDueAmount === 0
+  ) {
+    payableAmount = studentSemesterPayment?.partialPaymentAmount as number;
+  } else {
+    payableAmount = studentSemesterPayment?.totalDueAmount as number;
+  }
+
+  const dataToInsert = {
+    studentSemesterPaymentId: studentSemesterPayment?.id,
+    transactionId: `${student?.studentId}-${studentSemesterPayment
+      ?.academicSemester?.title}-${Date.now()}`,
+    dueAmount: payableAmount,
+    paidAmount: 0,
+  };
+
+  const studentSemesterPaymentHistory =
+    await prisma.studentSemesterPaymentHistory.create({
+      data: dataToInsert,
+    });
+
+  const paymentResponse = await axios.post(
+    config.initPaymentEndPoint || 'http://localhost:3333/api/v1/payment/init',
+    {
+      amount: studentSemesterPaymentHistory?.dueAmount,
+      transactionId: studentSemesterPaymentHistory?.transactionId,
+      studentId: `${student?.firstName} ${student?.lastName}`,
+      studentName: student?.studentId,
+      studentEmail: student?.email,
+      address: 'Khulna, Bangladesh',
+      phone: student?.contactNo,
+    },
+  );
+
+  return {
+    paymentUrl: paymentResponse?.data,
+    paymentDetails: isPendingPaymentExist,
+  };
 };
 
 export const StudentSemesterPaymentService = {
