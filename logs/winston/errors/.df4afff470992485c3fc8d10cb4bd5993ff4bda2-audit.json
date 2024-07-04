@@ -1,20 +1,30 @@
 {
-  "keep": {
-    "days": true,
-    "amount": 14
-  },
-  "auditLog": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\errors\\.df4afff470992485c3fc8d10cb4bd5993ff4bda2-audit.json",
-  "files": [
-    {
-      "date": 1719903115732,
-      "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\errors\\unt-2024-02-07-12-error.log",
-      "hash": "f095f30691fbb8de5b45d38f63edf08ea7080f948e6b9f285df0d6a714dd1934"
+    "keep": {
+        "days": true,
+        "amount": 14
     },
-    {
-      "date": 1719903841066,
-      "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\errors\\unt-2024-02-07-13-error.log",
-      "hash": "91a7de6a902389314a3914aec84ecb0d0ce04e2b4df9f3574aabf99d279d23c2"
-    }
-  ],
-  "hashType": "sha256"
+    "auditLog": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\errors\\.df4afff470992485c3fc8d10cb4bd5993ff4bda2-audit.json",
+    "files": [
+        {
+            "date": 1719903115732,
+            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\errors\\unt-2024-02-07-12-error.log",
+            "hash": "f095f30691fbb8de5b45d38f63edf08ea7080f948e6b9f285df0d6a714dd1934"
+        },
+        {
+            "date": 1719903841066,
+            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\errors\\unt-2024-02-07-13-error.log",
+            "hash": "91a7de6a902389314a3914aec84ecb0d0ce04e2b4df9f3574aabf99d279d23c2"
+        },
+        {
+            "date": 1720104502925,
+            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\errors\\unt-2024-04-07-20-error.log",
+            "hash": "39b716b15e2f04caa6a16b665410a217eb69abc7a984401ef68e54330dcfc327"
+        },
+        {
+            "date": 1720105212017,
+            "name": "C:\\level-2\\uniTrack-core-service\\logs\\winston\\errors\\unt-2024-04-07-21-error.log",
+            "hash": "facbf7ea67885f0c742fa72c79cd5b903f22c4a0426ba4c6b7f5054163993fc9"
+        }
+    ],
+    "hashType": "sha256"
 }

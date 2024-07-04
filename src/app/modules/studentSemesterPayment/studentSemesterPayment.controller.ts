@@ -41,7 +41,19 @@ const initiatePayment = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const completePayment = catchAsync(async (req: Request, res: Response) => {
+  const result = await StudentSemesterPaymentService.completePayment(req.body);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Payment completed',
+    data: result,
+  });
+});
+
 export const StudentSemesterPaymentController = {
   getAllSemesterPayment,
   initiatePayment,
+  completePayment,
 };
