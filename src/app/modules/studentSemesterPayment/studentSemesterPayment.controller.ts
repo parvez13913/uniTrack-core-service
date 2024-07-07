@@ -26,6 +26,27 @@ const getAllSemesterPayment = catchAsync(
   },
 );
 
+const getMySemesterPayments = catchAsync(
+  async (req: Request, res: Response) => {
+    const filters = pick(req.query, studentSemesterPaymentFilterableFields);
+    const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+    const user = (req as any).user;
+
+    const result = await StudentSemesterPaymentService.getMySemesterPayments(
+      filters,
+      options,
+      user,
+    );
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Student semester payment fetched successfully',
+      meta: result.meta,
+      data: result.data,
+    });
+  },
+);
+
 const initiatePayment = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
   const result = await StudentSemesterPaymentService.initiatePayment(
@@ -56,4 +77,5 @@ export const StudentSemesterPaymentController = {
   getAllSemesterPayment,
   initiatePayment,
   completePayment,
+  getMySemesterPayments,
 };

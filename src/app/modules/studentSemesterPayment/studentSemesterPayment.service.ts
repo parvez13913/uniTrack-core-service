@@ -132,6 +132,91 @@ const getAllSemesterPayment = async (
   };
 };
 
+const getMySemesterPayments = async (
+  filters: IStudentSemesterPaymentFilterRequest,
+  options: IPaginationOptions,
+  authUser: any,
+): Promise<IGenericResponse<StudentSemesterPayment[]>> => {
+  const { limit, page, skip } = paginationHelpers.calculatePagination(options);
+  const { searchTerm, ...filterData } = filters;
+
+  const student = await prisma.student.findFirst({
+    where: {
+      studentId: authUser.id,
+    },
+  });
+
+  if (!student) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Student not found');
+  }
+
+  filterData.studentId = student.id;
+
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: studentSemesterPaymentSearchableFields.map(field => ({
+        [field]: {
+          contains: searchTerm,
+          mode: 'insensitive',
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filterData).length > 0) {
+    andConditions.push({
+      AND: Object.keys(filterData).map(key => {
+        if (studentSemesterPaymentRelationalFields.includes(key)) {
+          return {
+            [studentSemesterPaymentRelationalFieldsMapper[key]]: {
+              id: (filterData as any)[key],
+            },
+          };
+        } else {
+          return {
+            [key]: {
+              equals: (filterData as any)[key],
+            },
+          };
+        }
+      }),
+    });
+  }
+
+  const whereConditions: Prisma.StudentSemesterPaymentWhereInput =
+    andConditions.length > 0 ? { AND: andConditions } : {};
+
+  const result = await prisma.studentSemesterPayment.findMany({
+    include: {
+      academicSemester: true,
+      student: true,
+    },
+    where: whereConditions,
+    skip,
+    take: limit,
+    orderBy:
+      options.sortBy && options.sortOrder
+        ? { [options.sortBy]: options.sortOrder }
+        : {
+            createdAt: 'desc',
+          },
+  });
+  const total = await prisma.studentSemesterPayment.count({
+    where: whereConditions,
+  });
+
+  return {
+    meta: {
+      total,
+      page,
+      limit,
+    },
+    data: result,
+  };
+};
+
 const initiatePayment = async (payload: any, user: any) => {
   const student = await prisma.student.findFirst({
     where: {
@@ -313,4 +398,5 @@ export const StudentSemesterPaymentService = {
   getAllSemesterPayment,
   initiatePayment,
   completePayment,
+  getMySemesterPayments,
 };
