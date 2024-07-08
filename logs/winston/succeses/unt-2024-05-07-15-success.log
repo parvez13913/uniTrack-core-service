@@ -1,0 +1,6 @@
+{
+  message: 'Server running on port 3002',
+  level: 'info',
+  label: 'UniTrack',
+  timestamp: '2024-07-05T09:42:11.833Z'
+}

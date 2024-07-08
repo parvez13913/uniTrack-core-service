@@ -35,7 +35,7 @@ const createSemesterPayment = async (
     totalPaymentAmount: number;
   },
 ) => {
-  const isExist = prismaClient.studentSemesterPayment.findFirst({
+  const isExist = await prismaClient.studentSemesterPayment.findFirst({
     where: {
       student: {
         id: payload.studentId,

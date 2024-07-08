@@ -462,6 +462,7 @@ const startNewSemester = async (
             },
           );
         }
+
         const studentSemesterRegistrationCourses =
           await prismaTransactionClient.studentSemesterRegistrationCourse.findMany(
             {
