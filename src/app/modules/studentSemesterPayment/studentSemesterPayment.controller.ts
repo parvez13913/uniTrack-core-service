@@ -19,7 +19,7 @@ const getAllSemesterPayment = catchAsync(
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Student semester payment fetched successfully',
+      message: 'All students semester payment fetched successfully',
       meta: result.meta,
       data: result.data,
     });
@@ -31,7 +31,6 @@ const getMySemesterPayments = catchAsync(
     const filters = pick(req.query, studentSemesterPaymentFilterableFields);
     const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
     const user = (req as any).user;
-
     const result = await StudentSemesterPaymentService.getMySemesterPayments(
       filters,
       options,

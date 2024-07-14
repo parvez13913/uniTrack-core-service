@@ -142,7 +142,7 @@ const getMySemesterPayments = async (
 
   const student = await prisma.student.findFirst({
     where: {
-      studentId: authUser.id,
+      studentId: authUser?.id,
     },
   });
 
@@ -150,7 +150,7 @@ const getMySemesterPayments = async (
     throw new ApiError(httpStatus.NOT_FOUND, 'Student not found');
   }
 
-  filterData.studentId = student.id;
+  filterData.studentId = student?.id;
 
   const andConditions = [];
 
